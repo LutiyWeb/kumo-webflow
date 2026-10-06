@@ -12,12 +12,25 @@
       }
       .hero {
         position: relative;
-        height: 100vh;
+        height: 800px;
         overflow: hidden;
       }
       .hero__canvas {
         position: absolute;
         inset: 0;
+      }
+
+      .dev-morph {
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        z-index: 10;
+        padding: 8px 14px;
+        font: 14px monospace;
+        color: #000;
+        background: #ffcc00;
+        border: 0;
+        cursor: pointer;
       }
     </style>
   </head>
@@ -25,6 +38,17 @@
     <section class="hero">
       <div class="hero__canvas" data-hero-globe></div>
     </section>
+    <button class="dev-morph" type="button">Морф → сетка</button>
+    <script>
+      // переключатель: каждый клик шлёт противоположное значение
+      const btn = document.querySelector(".dev-morph");
+      let state = 0;
+      btn.addEventListener("click", () => {
+        state = 1 - state;
+        window.dispatchEvent(new CustomEvent("kumo:morph", { detail: state }));
+        btn.textContent = state ? "Морф → глобус" : "Морф → сетка";
+      });
+    </script>
     <script type="module" src="/src/hero-globe.ts"></script>
   </body>
 </html>
