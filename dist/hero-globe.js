@@ -11240,16 +11240,16 @@ if (sc) {
 		let i = e.createLinearGradient(0, t, t, 0);
 		i.addColorStop(0, "rgba(0,0,0,0.3)"), i.addColorStop(.55, "rgba(0,0,0,0.4)"), i.addColorStop(1, "rgba(0,0,0,1)"), e.fillStyle = i, e.fillRect(0, 0, t, t);
 	}), d = n.position.z, f = r * d / Math.sqrt(d * d - r * r);
-	u.scale.setScalar(f * 2 / .83), t.add(u);
+	u.scale.setScalar(f * 2 * 1.02 / .83), t.add(u);
 	let p = () => l((e, t) => {
 		let n = t / 2, r = e.createRadialGradient(n, n, 0, n, n, n);
 		r.addColorStop(0, "rgba(255,220,90,0.8)"), r.addColorStop(.12, "rgba(255,204,0,0.35)"), r.addColorStop(.5, "rgba(255,204,0,0.06)"), r.addColorStop(1, "rgba(255,204,0,0)"), e.fillStyle = r, e.fillRect(0, 0, t, t);
 	}), m = p();
-	m.scale.set(1.5, .28, 1), m.material.rotation = je.degToRad(6);
+	m.scale.set(1.5, .28, 1), m.position.set(-f * .12, f * .985, 0), m.material.rotation = je.degToRad(6);
 	let h = p();
 	h.position.set(0, -1.62, 0), h.scale.setScalar(.7), i.add(h), t.add(m);
 	let g = new Image();
-	g.src = oc, g.onload = () => {
+	g.crossOrigin = "anonymous", g.src = oc, g.onload = () => {
 		let e = document.createElement("canvas");
 		e.width = g.width, e.height = g.height;
 		let t = e.getContext("2d");
@@ -11285,9 +11285,7 @@ if (sc) {
 	};
 	let _ = () => {
 		let { clientWidth: t, clientHeight: r } = sc;
-		e.setSize(t, r), n.aspect = t / r, n.updateProjectionMatrix();
-		let a = 2 * n.position.z * Math.tan(je.degToRad(n.fov / 2));
-		i.position.x = u.position.x = a * n.aspect * .207, m.position.set(i.position.x - f * .12, f * .985, 0);
+		e.setSize(t, r), n.aspect = t / r, n.setViewOffset(t, r, -t * .207, 0, t, r);
 	};
 	new ResizeObserver(_).observe(sc), _(), e.setAnimationLoop((r) => {
 		a.uniforms.uTime.value = r / 1e3, o.rotation.y += .0015, e.render(t, n);

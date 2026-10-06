@@ -1,6 +1,11 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
+  server: {
+    cors: true, // разрешить опубликованному сайту грузить файлы с localhost
+    origin: "http://localhost:5173", // картинки и прочие ассеты получают полный адрес localhost,
+    // иначе браузер искал бы их на webflow.io
+  },
   build: {
     // режим библиотеки: на выходе не сайт с index.html, а JS-файлы для подключения на чужую страницу
     lib: {

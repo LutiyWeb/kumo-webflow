@@ -98,8 +98,8 @@ if (container) {
     blending: THREE.AdditiveBlending,
     uniforms: {
       uColor: { value: new THREE.Color(0xffcc00) },
-      uSize: { value: 48.0 },     // размер пятна в пикселях
-      uOpacity: { value: 0.12 },  // прозрачность одного пятна — главная ручка яркости дымки
+      uSize: { value: 48.0 }, // размер пятна в пикселях
+      uOpacity: { value: 0.12 }, // прозрачность одного пятна — главная ручка яркости дымки
       uPixelRatio: { value: renderer.getPixelRatio() },
     },
     vertexShader: /* glsl */ `
@@ -170,7 +170,7 @@ if (container) {
   const camDist = camera.position.z;
   const silhouette =
     (RADIUS * camDist) / Math.sqrt(camDist * camDist - RADIUS * RADIUS);
-  rim.scale.setScalar((silhouette * 2) / 0.83);
+  rim.scale.setScalar((silhouette * 2 * 1.02) / 0.83);
   scene.add(rim); // не в tilt: освещение фиксировано относительно экрана
 
   // HOTSPOTS — мягкие оранжевые очаги у полюсов (как в референсе)
@@ -187,6 +187,7 @@ if (container) {
     });
   const north = hotspot();
   north.scale.set(1.5, 0.28, 1); // вытянутый вдоль края, а не круглое пятно
+  north.position.set(-silhouette * 0.12, silhouette * 0.985, 0); // верхняя кромка, чуть левее центра
   north.material.rotation = THREE.MathUtils.degToRad(6); // наклон как у оси, чтобы лёг вдоль кромки
   const south = hotspot();
   south.position.set(0, -RADIUS, 0);
@@ -196,6 +197,9 @@ if (container) {
 
   // ---------- ТОЧКИ ПО КАРТЕ ----------
   const img = new Image();
+  // В dev-режиме карта грузится с localhost, а страница открыта с webflow.io.
+  // Без этого браузер запретит читать пиксели «чужой» картинки через getImageData.
+  img.crossOrigin = "anonymous";
   img.src = maskUrl;
   img.onload = () => {
     const canvas = document.createElement("canvas");
@@ -263,7 +267,8 @@ if (container) {
       sizes.push(Math.random() < 0.08 ? 2.0 : 0.8 + Math.random() * 0.8);
       phases.push(Math.random() * Math.PI * 2);
       // каждую ~3-ю точку суши дублируем в слой дымки (без «пыли» над поверхностью)
-      if (Math.random() < 0.35) hazePositions.push(x * RADIUS, y * RADIUS, z * RADIUS);
+      if (Math.random() < 0.35)
+        hazePositions.push(x * RADIUS, y * RADIUS, z * RADIUS);
     }
 
     // 2) пыль над всей сферой — шейдер покажет её только у освещённого края
@@ -281,23 +286,21 @@ if (container) {
     g.setAttribute("aBright", new THREE.Float32BufferAttribute(bright, 1));
     g.setAttribute("aSize", new THREE.Float32BufferAttribute(sizes, 1));
     g.setAttribute("aPhase", new THREE.Float32BufferAttribute(phases, 1));
-    haze.geometry.setAttribute("position", new THREE.Float32BufferAttribute(hazePositions, 3));
+    haze.geometry.setAttribute(
+      "position",
+      new THREE.Float32BufferAttribute(hazePositions, 3),
+    );
   };
 
   const resize = () => {
     const { clientWidth: w, clientHeight: h } = container;
     renderer.setSize(w, h);
     camera.aspect = w / h;
-    camera.updateProjectionMatrix();
-    // Видимая высота сцены в плоскости z = 0: 2 · расстояние до камеры · tan(половины угла обзора).
-    // Через неё переводим «20.7% ширины» из Figma в единицы Three.js.
-    const visibleH =
-      2 *
-      camera.position.z *
-      Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
-    tilt.position.x = rim.position.x = visibleH * camera.aspect * OFFSET_X;
-    // северный очаг — на верхней кромке диска, чуть левее центра (как в референсе)
-    north.position.set(tilt.position.x - silhouette * 0.12, silhouette * 0.985, 0);
+    // «Сдвиг объектива»: глобус стоит в центре сцены, где нет перспективных искажений,
+    // а вправо сдвигаем сам кадр. setViewOffset(полная ширина, полная высота, сдвиг X, сдвиг Y, ширина, высота):
+    // отрицательный X смещает картинку вправо на 20.7% ширины, как в Figma.
+    // Метод сам вызывает updateProjectionMatrix().
+    camera.setViewOffset(w, h, -w * OFFSET_X, 0, w, h);
   };
   new ResizeObserver(resize).observe(container);
   resize();
