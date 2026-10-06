@@ -589,6 +589,33 @@ if (container) {
   });
   resize();
 
+  // ---------- СВЯЗЬ СО СЛАЙДЕРОМ WEBFLOW ----------
+  // Webflow вешает класс w-active на точку навигации активного слайда.
+  // Следим за этим и шлём kumo:morph: слайд 1 → 0 (глобус), слайд 2 → 1 (сетка).
+  // В песочнице слайдера нет — блок просто не сработает.
+  const slider = document.querySelector("[data-hero-slider]");
+  if (slider) {
+    let lastSlide = -1;
+    const syncSlide = () => {
+      const dots = Array.from(slider.querySelectorAll(".w-slider-dot"));
+      const index = dots.findIndex((dot) => dot.classList.contains("w-active"));
+      if (index < 0 || index === lastSlide) return; // точек ещё нет или слайд не сменился
+      lastSlide = index;
+      window.dispatchEvent(
+        new CustomEvent("kumo:morph", { detail: index === 1 ? 1 : 0 }),
+      );
+    };
+    // subtree + childList: точки создаёт скрипт Webflow уже после загрузки;
+    // attributeFilter: из атрибутов реагируем только на смену классов
+    new MutationObserver(syncSlide).observe(slider, {
+      subtree: true,
+      childList: true,
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    syncSlide();
+  }
+
   renderer.setAnimationLoop((time) => {
     material.uniforms.uTime.value = time / 1000; // в секундах
     spin += ((hovering ? 0 : 0.0015) - spin) * 0.05;

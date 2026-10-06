@@ -11427,7 +11427,21 @@ if (sc) {
 	};
 	i.addEventListener("change", M), M(), i.matches && (s.uniforms.uMorph.value = 1), window.addEventListener("kumo:morph", (e) => {
 		A = e.detail, M();
-	}), T(), e.setAnimationLoop((r) => {
+	}), T();
+	let N = document.querySelector("[data-hero-slider]");
+	if (N) {
+		let e = -1, t = () => {
+			let t = Array.from(N.querySelectorAll(".w-slider-dot")).findIndex((e) => e.classList.contains("w-active"));
+			t < 0 || t === e || (e = t, window.dispatchEvent(new CustomEvent("kumo:morph", { detail: +(t === 1) })));
+		};
+		new MutationObserver(t).observe(N, {
+			subtree: !0,
+			childList: !0,
+			attributes: !0,
+			attributeFilter: ["class"]
+		}), t();
+	}
+	e.setAnimationLoop((r) => {
 		s.uniforms.uTime.value = r / 1e3, k += ((O ? 0 : .0015) - k) * .05, c.rotation.y += k, o.rotation.x += (D.x - o.rotation.x) * .05, o.rotation.y += (D.y - o.rotation.y) * .05;
 		let i = s.uniforms.uMorph;
 		i.value += (j - i.value) * .03;
