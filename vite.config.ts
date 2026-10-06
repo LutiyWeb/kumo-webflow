@@ -11,7 +11,10 @@ export default defineConfig({
     lib: {
       // объект, а не одна строка: сюда потом добавим вторую сцену и React-виджет,
       // каждый соберётся в свой файл
-      entry: { "hero-globe": "src/hero-globe.ts" },
+      entry: {
+        "hero-globe": "src/hero-globe.ts",
+        "solutions-slider": "src/solutions-slider.ts",
+      },
       formats: ["es"], // ES-модуль, подключается через <script type="module">
       fileName: (_format, name) => `${name}.js`, // dist/hero-globe.js без хешей
     },
