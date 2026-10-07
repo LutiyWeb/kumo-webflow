@@ -14,7 +14,7 @@ if (root) {
     `
     [data-solutions-slider] .swiper-slide { transition: opacity 0.5s; }
     [data-solutions-slider] .swiper-slide-next,
-    [data-solutions-slider] .swiper-slide-next ~ .swiper-slide { opacity: 0.25; }  /* следующие — бледные */
+    [data-solutions-slider] .swiper-slide-next ~ .swiper-slide { opacity: 0.1; }  /* следующие — бледные, как в Figma */
     [data-solutions-slider] .swiper-slide-prev,
     [data-solutions-slider] .swiper-slide:has(~ .swiper-slide-prev) { opacity: 0; } /* прошедшие — скрыты */
   `;
@@ -38,7 +38,10 @@ if (root) {
   new Swiper(root, {
     modules: [Navigation],
     slidesPerView: "auto", // ширину слайда задаём в Webflow, Swiper её не трогает
-    spaceBetween: 64, // отступ между слайдами, как в Figma
+    spaceBetween: 20, // отступ между слайдами на мобилке (Figma: ~20px)
+    breakpoints: {
+      768: { spaceBetween: 65 }, // от 768px — как в десктопном макете
+    },
     speed: 700,
     slidesOffsetAfter: tail(),
     // кнопки могут стоять где угодно на странице — это и было нужно

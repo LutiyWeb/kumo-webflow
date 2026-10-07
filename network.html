@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kumo – network sandbox</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: #16110d;
+      }
+      section {
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- та же разметка, что на странице Products в Webflow -->
+    <section data-network="true">
+      <div class="container">network</div>
+    </section>
+    <script type="module" src="/src/network.ts"></script>
+  </body>
+</html>

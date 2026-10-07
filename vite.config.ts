@@ -14,6 +14,7 @@ export default defineConfig({
       entry: {
         "hero-globe": "src/hero-globe.ts",
         "solutions-slider": "src/solutions-slider.ts",
+        network: "src/network.ts",
       },
       formats: ["es"], // ES-модуль, подключается через <script type="module">
       fileName: (_format, name) => `${name}.js`, // dist/hero-globe.js без хешей
