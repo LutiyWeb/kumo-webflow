@@ -10,7 +10,6 @@ export default function Step({ items, onSelect, selectedId }: StepProps) {
   if (Array.isArray(items)) {
     return (
       <div className="sb-step">
-        <h3 className="sb-step__question">{}</h3>
         <div className="sb-step__grid">
           {items.map((item: any) => (
             <Option

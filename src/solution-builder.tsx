@@ -1,5 +1,4 @@
 import { createRoot } from "react-dom/client";
-import "./solution-builder/solution-builder.css";
 import { useState } from "react";
 import {
   TITLES,
@@ -8,7 +7,23 @@ import {
   TASKS_BY_INDUSTRY,
 } from "./solution-builder/config";
 import Step from "./solution-builder/Step";
-import type { Answers } from "./solution-builder/types";
+import { Progress } from "./solution-builder/Progress";
+import type {
+  Answers,
+  IndustryId,
+  PriorityId,
+  TaskId,
+} from "./solution-builder/types";
+import { Result } from "./solution-builder/result";
+import recommend from "./solution-builder/recommend";
+import css from "./solution-builder/solution-builder.css?inline";
+
+// В режиме библиотеки Vite не подключает CSS сам — кладём стили в <head>
+const style = document.createElement("style");
+style.textContent = css;
+document.head.append(style);
+
+const TOTAL = 4;
 
 function SolutionBuilder() {
   const EMPTY: Answers = {
@@ -19,45 +34,27 @@ function SolutionBuilder() {
   };
 
   const [currentStep, setCurrentStep] = useState<number>(1);
-  const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
-  const [selectedTask, setSelectedTask] = useState<string | null>(null);
-  const [selectedSites, setSelectedSites] = useState<number>(5);
   const [answers, setAnswers] = useState<Answers>(EMPTY);
-  const [selectedPriority, setSelectedPriority] = useState<string | null>(null);
 
   const set = <K extends keyof Answers>(key: K, value: Answers[K]) => {
     setAnswers((prev) => ({ ...prev, [key]: value }));
   };
 
-  function checkCurrentStep(currentStep: number) {
-    switch (currentStep) {
-      case 1:
-        return INDUSTRIES;
-      case 2:
-        return selectedIndustry
-          ? TASKS_BY_INDUSTRY[
-              selectedIndustry as keyof typeof TASKS_BY_INDUSTRY
-            ]
-          : null;
-      default:
-        return null;
-    }
-  }
-
-  const currentData = checkCurrentStep(currentStep);
-  console.log(currentData);
+  const canNext =
+    (currentStep === 1 && answers.industry) ||
+    (currentStep === 2 && answers.task) ||
+    currentStep === 3 ||
+    (currentStep === 4 && answers.priority);
 
   const renderStep = () => {
     switch (currentStep) {
       case 1:
         return (
           <Step
-            items={currentData}
-            selectedId={selectedIndustry}
+            items={INDUSTRIES}
+            selectedId={answers.industry}
             onSelect={(id) => {
-              setSelectedIndustry(id);
-              setSelectedTask(null);
-              set("industry", id as any); // Наполнение общего объекта
+              set("industry", id as IndustryId); // Наполнение общего объекта
               set("task", null);
             }}
           />
@@ -66,11 +63,10 @@ function SolutionBuilder() {
       case 2:
         return (
           <Step
-            items={currentData}
-            selectedId={selectedTask}
+            items={answers.industry ? TASKS_BY_INDUSTRY[answers.industry] : []}
+            selectedId={answers.task}
             onSelect={(id) => {
-              setSelectedTask(id);
-              set("task", id as any);
+              set("task", id as TaskId);
             }}
           />
         );
@@ -84,14 +80,12 @@ function SolutionBuilder() {
                 type="range"
                 min={1}
                 max={50}
-                value={selectedSites}
+                value={answers.sites}
                 onChange={(e) => {
-                  const value = Number(e.target.value);
-                  setSelectedSites(value);
-                  set("sites", value);
+                  set("sites", Number(e.target.value));
                 }}
               />
-              <b className="sb-scale__value">{selectedSites}</b>
+              <b className="sb-scale__value">{answers.sites}</b>
             </div>
           </div>
         );
@@ -99,36 +93,50 @@ function SolutionBuilder() {
         return (
           <Step
             items={PRIORITIES}
-            selectedId={selectedPriority}
+            selectedId={answers.priority}
             onSelect={(id) => {
-              setSelectedPriority(id);
-              set("priority", id as any);
+              set("priority", id as PriorityId);
             }}
           />
         );
     }
   };
 
-  console.log(answers, "answers");
+  if (currentStep > TOTAL) {
+    const result = recommend(answers);
+
+    const tags = [
+      INDUSTRIES.find((i) => i.id === answers.industry)?.title ?? "",
+      (answers.industry
+        ? TASKS_BY_INDUSTRY[answers.industry].find((t) => t.id === answers.task)
+        : undefined
+      )?.title ?? "",
+      `${answers.sites} sites`,
+      `Priority: ${PRIORITIES.find((p) => p.id === answers.priority)?.title ?? ""}`,
+    ];
+
+    return (
+      <section className="sb">
+        <h2 className="sb-step__title">Your solution</h2>
+        <Result
+          result={result}
+          tags={tags}
+          onRestart={() => {
+            setAnswers(EMPTY);
+            setCurrentStep(1);
+          }}
+        />
+      </section>
+    );
+  }
 
   return (
     <section className="sb">
-      {/* 1. Прогресс */}
-      <div className="sb-progress">
-        <span className="sb-progress__label">{currentStep} / 4</span>
-        <div className="sb-progress__bar">
-          <i style={{ width: `${(currentStep / 4) * 100}%` }} />
-        </div>
-      </div>
-      {/* 2. Заголовок */}
-      <h2 className="sb-step__title">{TITLES[currentStep]}</h2>
-      <h2 className="sb-step__title"></h2>
+      <Progress step={currentStep} total={TOTAL} />
+      <h2 className="sb-step__title">{TITLES[currentStep - 1]}</h2>
 
-      {/* 3. Сетка карточек */}
       <div className="solution-builder">{renderStep()}</div>
 
-      {selectedIndustry}
-      {/* 4. Навигация */}
       <div className="sb-nav">
         <button
           type="button"
@@ -143,12 +151,12 @@ function SolutionBuilder() {
         <button
           type="button"
           className="sb-btn"
-          disabled={!selectedIndustry}
+          disabled={!canNext}
           onClick={() => {
             setCurrentStep(currentStep + 1);
           }}
         >
-          Next →
+          {currentStep === TOTAL ? "See solutions" : "Next →"}
         </button>
       </div>
     </section>

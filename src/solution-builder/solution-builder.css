@@ -130,6 +130,13 @@
   letter-spacing: 0.05em;
   cursor: pointer;
   text-decoration: none;
+  transition:
+    background-color 0.2s,
+    filter 0.2s,
+    color 0.2s;
+}
+.sb-btn:hover:not(:disabled) {
+  filter: brightness(1.08);
 }
 .sb-btn:disabled {
   opacity: 0.3;
@@ -141,6 +148,10 @@
   color: var(--muted);
   font-weight: 600;
   cursor: pointer;
+  transition: color 0.2s;
+}
+.sb-btn-ghost:hover:not(:disabled) {
+  color: #fff;
 }
 .sb-btn-ghost:disabled {
   visibility: hidden;

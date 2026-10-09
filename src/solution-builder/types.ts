@@ -6,19 +6,43 @@ export type IndustryId =
   | "mobile"
   | "retail";
 export type TaskId =
-  | "monitor"
+  | "fleet"
+  | "factory"
+  | "quality"
+  | "unsure"
+  | "patient-data"
+  | "devices"
+  | "records"
+  | "maintenance"
+  | "line"
+  | "connect"
   | "data"
-  | "security"
-  | "automate"
-  | "modernize"
-  | "unsure";
+  | "legacy"
+  | "grid"
+  | "city"
+  | "protect"
+  | "field"
+  | "secure-devices"
+  | "sync"
+  | "inventory"
+  | "customers"
+  | "payments"
+  | "omni";
 export type ProductId =
   | "iot"
   | "servers"
   | "integrated"
   | "managed"
   | "consulting"
-  | "software";
+  | "software"
+  | "ai"
+  | "security";
+
+/** Правило: какой продукт советуем и почему */
+export type ProductRule = {
+  product: ProductId;
+  reason: string;
+};
 
 export type Card = {
   id: string;
