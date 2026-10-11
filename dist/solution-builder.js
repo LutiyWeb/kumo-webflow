@@ -9467,8 +9467,8 @@ var e = (e, t) => () => (t || (e((t = { exports: {} }).exports, t), e = null), t
 		description: "Lowest cost over the years"
 	}
 ], g = /* @__PURE__ */ e(((e) => {
-	var t = Symbol.for("react.transitional.element");
-	function n(e, n, r) {
+	var t = Symbol.for("react.transitional.element"), n = Symbol.for("react.fragment");
+	function r(e, n, r) {
 		var i = null;
 		if (r !== void 0 && (i = "" + r), n.key !== void 0 && (i = "" + n.key), "key" in n) for (var a in r = {}, n) a !== "key" && (r[a] = n[a]);
 		else r = n;
@@ -9480,7 +9480,7 @@ var e = (e, t) => () => (t || (e((t = { exports: {} }).exports, t), e = null), t
 			props: r
 		};
 	}
-	e.jsx = n, e.jsxs = n;
+	e.Fragment = n, e.jsx = r, e.jsxs = r;
 })), _ = (/* @__PURE__ */ e(((e, t) => {
 	t.exports = g();
 })))();
@@ -9590,8 +9590,111 @@ function ee({ result: e, tags: t, onRestart: n }) {
 	});
 }
 //#endregion
+//#region src/solution-builder/ServicePicker.tsx
+function te({ services: e, selectedId: t, onSelect: n }) {
+	return /* @__PURE__ */ (0, _.jsx)("div", {
+		className: "service-picker",
+		children: e.map((e) => /* @__PURE__ */ (0, _.jsx)("button", {
+			type: "button",
+			className: e.id === t ? "service-card service-card--selected" : "service-card",
+			onClick: () => n(e.id),
+			children: e.title
+		}, e.id))
+	});
+}
+//#endregion
+//#region src/solution-builder/ServiceDetail.tsx
+function ne(e) {
+	let t = import.meta.url, n = `${encodeURIComponent(e)}.json`;
+	return t.includes("/dist/") ? new URL(`../public/service-details/${n}`, t).href : new URL(`/service-details/${n}`, t).href;
+}
+function re({ title: e, id: t, added: n, onToggle: r }) {
+	let [i, a] = (0, l.useState)(null), [o, s] = (0, l.useState)("loading");
+	return (0, l.useEffect)(() => {
+		let e = !1;
+		return s("loading"), fetch(ne(t)).then((e) => {
+			if (!e.ok) throw Error("load failed");
+			return e.json();
+		}).then((t) => {
+			e || (a(t.text), s("ready"));
+		}).catch(() => {
+			e || s("error");
+		}), () => {
+			e = !0;
+		};
+	}, [t]), /* @__PURE__ */ (0, _.jsxs)("div", {
+		className: "service-detail",
+		children: [
+			/* @__PURE__ */ (0, _.jsx)("h3", {
+				className: "service-detail__title",
+				children: e
+			}),
+			o === "loading" && /* @__PURE__ */ (0, _.jsx)("p", { children: "Loading" }),
+			o === "ready" && /* @__PURE__ */ (0, _.jsx)("p", { children: i }),
+			o === "error" && /* @__PURE__ */ (0, _.jsx)("p", { children: "Couldn't load" }),
+			/* @__PURE__ */ (0, _.jsx)("button", {
+				type: "button",
+				className: n ? "service-detail__button service-detail__button--added" : "service-detail__button",
+				onClick: r,
+				children: n ? "Remove" : "Add to request"
+			})
+		]
+	});
+}
+//#endregion
+//#region src/solution-builder/RequestList.tsx
+function x({ currentRequest: e }) {
+	return /* @__PURE__ */ (0, _.jsx)("div", {
+		className: "request-list",
+		children: e.map((e) => /* @__PURE__ */ (0, _.jsxs)("p", { children: [" ", e] }, e))
+	});
+}
+//#endregion
+//#region src/solution-builder/ServiceRequest.tsx
+var ie = [
+	{
+		id: "predictive",
+		title: "Predictive maintenance"
+	},
+	{
+		id: "tracking",
+		title: "Asset tracking"
+	},
+	{
+		id: "energy",
+		title: "Energy monitoring"
+	}
+];
+function S({ industry: e, task: t, sites: n }) {
+	let [r, i] = (0, l.useState)(null), [a, o] = (0, l.useState)([]), s = ie.find((e) => e.id === r), c = [
+		e,
+		t,
+		`${n} sites`
+	].join(" · ");
+	function u(e) {
+		o((t) => t.includes(e) ? t.filter((t) => t !== e) : [...t, e]);
+	}
+	return console.log(a), /* @__PURE__ */ (0, _.jsxs)("section", { children: [
+		/* @__PURE__ */ (0, _.jsx)("p", { children: c }),
+		/* @__PURE__ */ (0, _.jsx)(te, {
+			services: ie,
+			selectedId: r,
+			onSelect: i
+		}),
+		/* @__PURE__ */ (0, _.jsx)("div", {
+			className: "service-request__columns",
+			children: s ? /* @__PURE__ */ (0, _.jsxs)(_.Fragment, { children: [/* @__PURE__ */ (0, _.jsx)(re, {
+				title: s.title,
+				id: s.id,
+				added: a.includes(s.id),
+				onToggle: () => u(s.id)
+			}), /* @__PURE__ */ (0, _.jsx)(x, { currentRequest: a })] }) : null
+		})
+	] });
+}
+//#endregion
 //#region src/solution-builder/recommend.ts
-function te(e) {
+function ae(e) {
 	let t = m[e.industry].find((t) => t.id === e.task)?.products.map((e) => ({
 		product: p[e.product],
 		reason: e.reason
@@ -9608,10 +9711,10 @@ function te(e) {
 }
 //#endregion
 //#region src/solution-builder/solution-builder.css?inline
-var ne = ".sb{--accent:#ffbe2e;--line:#dce0e033;--muted:#c4c4c4;border:1px solid var(--line);color:#fff;max-width:1170px;margin:0 auto;padding:40px;font-family:Open Sans,sans-serif}.sb__title{margin:0 0 24px;font:700 32px/1.2 Roboto Mono,monospace}.sb__title span{color:var(--accent)}.sb-progress{margin-bottom:36px}.sb-progress__label{color:#86817d;font:500 14px Roboto Mono,monospace}.sb-progress__bar{background:var(--line);height:2px;margin-top:12px}.sb-progress__bar i{background:var(--accent);height:100%;transition:width .4s;display:block}.sb-step__question{margin:0 0 20px;font:600 20px Open Sans,sans-serif}.sb-step__grid{grid-template-columns:repeat(3,1fr);gap:14px;display:grid}.sb-option{text-align:left;color:#fff;border:1px solid var(--line);cursor:pointer;background:0 0;flex-direction:column;gap:10px;padding:20px;transition:border-color .2s,background-color .2s;display:flex}.sb-option:hover{border-color:var(--muted)}.sb-option.is-selected{border-color:var(--accent);background:#ffbe2e0f}.sb-option__dot{border:1.5px solid var(--muted);border-radius:50%;width:16px;height:16px}.is-selected .sb-option__dot{border-color:var(--accent);background:radial-gradient(var(--accent) 40%, transparent 45%)}.sb-option__title{font:700 15px Roboto Mono,monospace}.is-selected .sb-option__title{color:var(--accent)}.sb-option__desc{color:var(--muted);font-size:13px;line-height:1.5}.sb-scale{align-items:center;gap:24px;display:flex}.sb-scale input{accent-color:var(--accent);flex:1}.sb-scale__value{min-width:60px;font:700 32px Roboto Mono,monospace}.sb-nav{justify-content:space-between;align-items:center;margin-top:36px;display:flex}.sb-btn{background:var(--accent);color:#16110d;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;border:0;padding:14px 28px;font-size:13px;font-weight:700;text-decoration:none;transition:background-color .2s,filter .2s,color .2s}.sb-btn:hover:not(:disabled){filter:brightness(1.08)}.sb-btn:disabled{opacity:.3;cursor:default}.sb-btn-ghost{color:var(--muted);cursor:pointer;background:0 0;border:0;font-weight:600;transition:color .2s}.sb-btn-ghost:hover:not(:disabled){color:#fff}.sb-btn-ghost:disabled{visibility:hidden}.sb-result__tags{flex-wrap:wrap;gap:8px;margin-bottom:24px;display:flex}.sb-tag{color:var(--muted);border:1px solid var(--line);padding:6px 12px;font-size:12px}.sb-result__list{margin:0;padding:0;list-style:none}.sb-result__item{border-top:1px solid var(--line);gap:16px;padding:16px 0;display:flex}.sb-result__item b{font:700 16px Roboto Mono,monospace}.sb-result__item p{color:var(--muted);margin:4px 0 0;font-size:13px}.sb-result__num{color:var(--accent);font:700 14px Roboto Mono,monospace}.sb-result__stats{border-top:1px solid var(--line);color:#86817d;margin-top:24px;padding-top:20px}.sb-result__stats b{color:#fff;margin-left:12px;font:700 26px Roboto Mono,monospace}@media (width<=767px){.sb{padding:24px 18px}.sb__title{font-size:24px}.sb-step__grid{grid-template-columns:1fr}}", re = document.createElement("style");
-re.textContent = ne, document.head.append(re);
-var x = 4;
-function ie() {
+var oe = ".sb{--accent:#ffbe2e;--line:#dce0e033;--muted:#c4c4c4;border:1px solid var(--line);color:#fff;max-width:1170px;margin:0 auto;padding:40px;font-family:Open Sans,sans-serif}.sb__title{margin:0 0 24px;font:700 32px/1.2 Roboto Mono,monospace}.sb__title span{color:var(--accent)}.sb-progress{margin-bottom:36px}.sb-progress__label{color:#86817d;font:500 14px Roboto Mono,monospace}.sb-progress__bar{background:var(--line);height:2px;margin-top:12px}.sb-progress__bar i{background:var(--accent);height:100%;transition:width .4s;display:block}.sb-step__question{margin:0 0 20px;font:600 20px Open Sans,sans-serif}.sb-step__grid{grid-template-columns:repeat(3,1fr);gap:14px;display:grid}.sb-option{text-align:left;color:#fff;border:1px solid var(--line);cursor:pointer;background:0 0;flex-direction:column;gap:10px;padding:20px;transition:border-color .2s,background-color .2s;display:flex}.sb-option:hover{border-color:var(--muted)}.sb-option.is-selected{border-color:var(--accent);background:#ffbe2e0f}.sb-option__dot{border:1.5px solid var(--muted);border-radius:50%;width:16px;height:16px}.is-selected .sb-option__dot{border-color:var(--accent);background:radial-gradient(var(--accent) 40%, transparent 45%)}.sb-result{margin-bottom:16px}.sb-option__title{font:700 15px Roboto Mono,monospace}.is-selected .sb-option__title{color:var(--accent)}.sb-option__desc{color:var(--muted);font-size:13px;line-height:1.5}.sb-scale{align-items:center;gap:24px;display:flex}.sb-scale input{accent-color:var(--accent);flex:1}.sb-scale__value{min-width:60px;font:700 32px Roboto Mono,monospace}.sb-nav{justify-content:space-between;align-items:center;margin-top:36px;display:flex}.sb-btn{background:var(--accent);color:#16110d;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;border:0;padding:14px 28px;font-size:13px;font-weight:700;text-decoration:none;transition:background-color .2s,filter .2s,color .2s}.sb-btn:hover:not(:disabled){filter:brightness(1.08)}.sb-btn:disabled{opacity:.3;cursor:default}.sb-btn-ghost{color:var(--muted);cursor:pointer;background:0 0;border:0;font-weight:600;transition:color .2s}.sb-btn-ghost:hover:not(:disabled){color:#fff}.sb-btn-ghost:disabled{visibility:hidden}.sb-result__tags{flex-wrap:wrap;gap:8px;margin-bottom:24px;display:flex}.sb-tag{color:var(--muted);border:1px solid var(--line);padding:6px 12px;font-size:12px}.sb-result__list{margin:0;padding:0;list-style:none}.sb-result__item{border-top:1px solid var(--line);gap:16px;padding:16px 0;display:flex}.sb-result__item b{font:700 16px Roboto Mono,monospace}.sb-result__item p{color:var(--muted);margin:4px 0 0;font-size:13px}.sb-result__num{color:var(--accent);font:700 14px Roboto Mono,monospace}.sb-result__stats{border-top:1px solid var(--line);color:#86817d;margin-top:24px;padding-top:20px}.sb-result__stats b{color:#fff;margin-left:12px;font:700 26px Roboto Mono,monospace}@media (width<=767px){.sb{padding:24px 18px}.sb__title{font-size:24px}.sb-step__grid{grid-template-columns:1fr}}", se = ".service-picker{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:16px;display:grid}.service-card{text-align:left;color:#fff;border:1px solid var(--line,#dce0e033);cursor:pointer;background:0 0;border-radius:0;padding:20px;font:700 15px/1.3 Roboto Mono,monospace;transition:border-color .2s,background-color .2s}.service-card:hover{border-color:var(--muted,#c4c4c4)}.service-card--selected{border-color:var(--accent,#ffbe2e);color:var(--accent,#ffbe2e);background:#ffbe2e0f}p:has(+.service-picker){color:var(--muted,#c4c4c4);border:1px solid var(--line,#dce0e033);margin:0;padding:6px 12px;font-size:12px;display:inline-block}.service-picker+p{color:#fff;margin:16px 0 0;font:700 16px/1.3 Roboto Mono,monospace}.service-request__columns{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch;gap:14px;margin-top:16px;display:grid}.service-detail{border:1px solid var(--line,#dce0e033);color:var(--muted,#c4c4c4);margin-top:0;padding:16px}.service-detail__title{color:var(--accent,#ffbe2e);margin:0 0 8px;font:700 16px/1.3 Roboto Mono,monospace}.service-detail__button{background:var(--accent,#ffbe2e);color:#16110d;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;border:1px solid #0000;border-radius:0;margin-top:16px;padding:12px 18px;font:700 13px/1.3 Roboto Mono,monospace;transition:background-color .2s,border-color .2s,color .2s,filter .2s}.service-detail__button:hover{filter:brightness(1.08)}.service-detail__button--added{color:#fff;border-color:var(--line,#dce0e033);background:0 0}.service-detail__button--added:hover{filter:none;border-color:var(--muted,#c4c4c4);color:#fff}.request-list{border:1px solid var(--line,#dce0e033);color:#fff;flex-direction:column;grid-column:2;gap:8px;margin:0;padding:16px;display:flex}.request-list p{margin:0;font:700 15px/1.3 Roboto Mono,monospace}@media (width<=767px){.service-picker,.service-request__columns{grid-template-columns:1fr}.request-list{grid-column:auto}}", ce = document.createElement("style");
+ce.textContent = `${oe}\n${se}`, document.head.append(ce);
+var le = 4;
+function ue() {
 	let e = {
 		industry: null,
 		task: null,
@@ -9668,8 +9771,8 @@ function ie() {
 			});
 		}
 	};
-	if (t > x) {
-		let t = te(r), a = [
+	if (t > le) {
+		let t = ae(r), a = [
 			d.find((e) => e.id === r.industry)?.title ?? "",
 			(r.industry ? m[r.industry].find((e) => e.id === r.task) : void 0)?.title ?? "",
 			`${r.sites} sites`,
@@ -9677,16 +9780,24 @@ function ie() {
 		];
 		return /* @__PURE__ */ (0, _.jsxs)("section", {
 			className: "sb",
-			children: [/* @__PURE__ */ (0, _.jsx)("h2", {
-				className: "sb-step__title",
-				children: "Your solution"
-			}), /* @__PURE__ */ (0, _.jsx)(ee, {
-				result: t,
-				tags: a,
-				onRestart: () => {
-					i(e), n(1);
-				}
-			})]
+			children: [
+				/* @__PURE__ */ (0, _.jsx)("h2", {
+					className: "sb-step__title",
+					children: "Your solution"
+				}),
+				/* @__PURE__ */ (0, _.jsx)(ee, {
+					result: t,
+					tags: a,
+					onRestart: () => {
+						i(e), n(1);
+					}
+				}),
+				/* @__PURE__ */ (0, _.jsx)(S, {
+					industry: a[0],
+					task: a[1],
+					sites: r.sites
+				})
+			]
 		});
 	}
 	return /* @__PURE__ */ (0, _.jsxs)("section", {
@@ -9694,7 +9805,7 @@ function ie() {
 		children: [
 			/* @__PURE__ */ (0, _.jsx)(b, {
 				step: t,
-				total: x
+				total: le
 			}),
 			/* @__PURE__ */ (0, _.jsx)("h2", {
 				className: "sb-step__title",
@@ -9721,12 +9832,12 @@ function ie() {
 					onClick: () => {
 						n(t + 1);
 					},
-					children: t === x ? "See solutions" : "Next →"
+					children: t === le ? "See solutions" : "Next →"
 				})]
 			})
 		]
 	});
 }
-var S = document.querySelector("[data-solution-builder]");
-S && (0, u.createRoot)(S).render(/* @__PURE__ */ (0, _.jsx)(ie, {}));
+var de = document.querySelector("[data-solution-builder]");
+de && (0, u.createRoot)(de).render(/* @__PURE__ */ (0, _.jsx)(ue, {}));
 //#endregion

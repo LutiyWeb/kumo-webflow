@@ -15,12 +15,14 @@ import type {
   TaskId,
 } from "./solution-builder/types";
 import { Result } from "./solution-builder/result";
+import ServiceRequest from "./solution-builder/ServiceRequest";
 import recommend from "./solution-builder/recommend";
 import css from "./solution-builder/solution-builder.css?inline";
+import requestCss from "./solution-builder/service-request.css?inline";
 
 // В режиме библиотеки Vite не подключает CSS сам — кладём стили в <head>
 const style = document.createElement("style");
-style.textContent = css;
+style.textContent = `${css}\n${requestCss}`;
 document.head.append(style);
 
 const TOTAL = 4;
@@ -125,6 +127,12 @@ function SolutionBuilder() {
             setAnswers(EMPTY);
             setCurrentStep(1);
           }}
+        />
+
+        <ServiceRequest
+          industry={tags[0]}
+          task={tags[1]}
+          sites={answers.sites}
         />
       </section>
     );

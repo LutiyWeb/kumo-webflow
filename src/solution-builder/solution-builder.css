@@ -83,6 +83,11 @@
   border-color: var(--accent);
   background: radial-gradient(var(--accent) 40%, transparent 45%);
 }
+
+.sb-result {
+  margin-bottom: 16px;
+}
+
 .sb-option__title {
   font:
     700 15px "Roboto Mono",
