@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "dev:embeds": "vite",
-    "build": "tsc -p tsconfig.vite.json && vite build",
-    "build:site": "next build",
+    "build": "next build",
+    "build:embeds": "tsc -p tsconfig.vite.json && vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
