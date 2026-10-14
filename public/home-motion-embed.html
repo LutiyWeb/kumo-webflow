@@ -1,0 +1,138 @@
+<!-- HOME MOTION: GSAP + ScrollTrigger. Home page only. -->
+<script>
+(function () {
+  if (!document.querySelector(".section--hero")) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (window.__kumoHomeMotion) return;
+  window.__kumoHomeMotion = true;
+
+  function loadScript(src) {
+    return new Promise(function (resolve, reject) {
+      var s = document.createElement("script");
+      s.src = src;
+      s.onload = resolve;
+      s.onerror = reject;
+      document.head.appendChild(s);
+    });
+  }
+
+  function run(gsap, ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+    var EASE = "power3.out";
+
+    function heroEntrance() {
+      var root = document.querySelector(".section--hero .hero__content");
+      if (!root) return;
+      var slide =
+        root.querySelector(".w-slide:not([aria-hidden='true'])") ||
+        root.querySelector(".w-slide") ||
+        root;
+      var title = slide.querySelector(".hero__title");
+      var subtitle = slide.querySelector(".hero__subtitle");
+      var nav = document.querySelector(".header");
+      var pieces = [title, subtitle].filter(Boolean);
+      if (!pieces.length) return;
+
+      gsap.set(pieces, { autoAlpha: 0, y: 28 });
+      if (nav) gsap.set(nav, { autoAlpha: 0, y: -12 });
+
+      var tl = gsap.timeline({ defaults: { ease: EASE } });
+      if (nav) tl.to(nav, { autoAlpha: 1, y: 0, duration: 0.55 }, 0.05);
+      if (title) tl.to(title, { autoAlpha: 1, y: 0, duration: 0.85 }, 0.15);
+      if (subtitle) tl.to(subtitle, { autoAlpha: 1, y: 0, duration: 0.75 }, 0.32);
+
+      var globe = document.querySelector(".hero__animation");
+      if (globe) {
+        gsap.fromTo(
+          globe,
+          { autoAlpha: 0.35 },
+          { autoAlpha: 1, duration: 1.2, ease: "power2.out", delay: 0.1 }
+        );
+      }
+    }
+
+    function revealSection(section) {
+      var title = section.querySelector(
+        ".section-title, .streams__head, .solutions__title, .looking__title, .why__title, .streams__title"
+      );
+      var lead = section.querySelectorAll(
+        ".text-lead, .solutions__row, .looking__text, .streams__line"
+      );
+      var cards = section.querySelectorAll(".card, .why__item");
+      var extras = section.querySelectorAll(
+        ".solutions__button, .industries__tabs, .streams__footer, .button-outline"
+      );
+
+      var batch = [];
+      if (title) batch.push(title);
+      lead.forEach(function (el) { batch.push(el); });
+      cards.forEach(function (el) { batch.push(el); });
+      extras.forEach(function (el) { batch.push(el); });
+      if (!batch.length) return;
+
+      gsap.set(batch, { autoAlpha: 0, y: 36 });
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top 82%",
+        once: true,
+        onEnter: function () {
+          var tl = gsap.timeline({ defaults: { ease: EASE } });
+          if (title) tl.to(title, { autoAlpha: 1, y: 0, duration: 0.75 }, 0);
+          if (lead.length) {
+            tl.to(lead, { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.1 }, title ? 0.12 : 0);
+          }
+          if (cards.length) {
+            tl.to(cards, { autoAlpha: 1, y: 0, duration: 0.65, stagger: 0.09 }, "-=0.35");
+          }
+          if (extras.length) {
+            tl.to(extras, { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.08 }, "-=0.3");
+          }
+          var line = section.querySelector(".streams__line");
+          if (line) {
+            gsap.fromTo(
+              line,
+              { scaleX: 0, transformOrigin: "left center" },
+              { scaleX: 1, duration: 0.9, ease: EASE, delay: 0.15 }
+            );
+          }
+        },
+      });
+    }
+
+    function softHovers() {
+      document.querySelectorAll(".section--looking .card").forEach(function (card) {
+        card.addEventListener("mouseenter", function () {
+          gsap.to(card, { y: -6, duration: 0.35, ease: EASE, overwrite: "auto" });
+        });
+        card.addEventListener("mouseleave", function () {
+          gsap.to(card, { y: 0, duration: 0.4, ease: EASE, overwrite: "auto" });
+        });
+      });
+    }
+
+    function init() {
+      heroEntrance();
+      document
+        .querySelectorAll(
+          ".section--solutions, .section--looking, .section--streams, .section--why, .section--industries"
+        )
+        .forEach(revealSection);
+      softHovers();
+      ScrollTrigger.refresh();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  }
+
+  var base = "https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/";
+  loadScript(base + "gsap.min.js")
+    .then(function () { return loadScript(base + "ScrollTrigger.min.js"); })
+    .then(function () { run(window.gsap, window.ScrollTrigger); })
+    .catch(function (err) { console.warn("[kumo] home-motion failed", err); });
+})();
+</script>

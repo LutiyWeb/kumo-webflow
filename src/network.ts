@@ -1,25 +1,36 @@
 import * as THREE from "three";
-import envelopeUrl from "./assets/envelope.svg";
-import atUrl from "./assets/at.svg";
 
-const section = document.querySelector<HTMLElement>("[data-network]");
-if (!section) throw new Error("[data-network] not found");
+const envelopeUrl = new URL("./assets/envelope.svg", import.meta.url).href;
+const atUrl = new URL("./assets/at.svg", import.meta.url).href;
 
-const renderer = new THREE.WebGLRenderer({
-  alpha: true,
-  antialias: true,
-});
+let host: HTMLElement | null = null;
+let watchSize: ResizeObserver | null = null;
+let fit: (() => void) | null = null;
 
-section.prepend(renderer.domElement);
-renderer.setSize(section.clientWidth, section.clientHeight);
+export function mountNetwork(container: HTMLElement) {
+  if (host) {
+    if (host !== container) {
+      const canvas = host.querySelector("canvas");
+      if (canvas) container.prepend(canvas);
+      watchSize?.disconnect();
+      host = container;
+      watchSize?.observe(host);
+      fit?.();
+    }
+    return;
+  }
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(
-  50,
-  section.clientWidth / section.clientHeight,
-  0.1,
-  100,
-);
+  host = container;
+
+  const renderer = new THREE.WebGLRenderer({
+    alpha: true,
+    antialias: true,
+  });
+
+  host.prepend(renderer.domElement);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
 camera.position.z = 10;
 
 const depthFade = (z: number) => THREE.MathUtils.mapLinear(z, -15, 4, 0.05, 1);
@@ -202,9 +213,28 @@ function addBokeh(
 addBokeh(40, 0.8, -20, -8, 0.15, 30, 18);
 addBokeh(15, 2.5, 2, 6, 0.12, 10, 6);
 
-renderer.setAnimationLoop((t) => {
-  camera.position.x = Math.sin(t * 0.00006) * 2;
-  camera.position.y = Math.cos(t * 0.00004) * 1;
-  camera.lookAt(0, 0, -5);
-  renderer.render(scene, camera);
-});
+  const resize = () => {
+    const w = host!.clientWidth;
+    const h = host!.clientHeight;
+    if (!w || !h) return;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  };
+  watchSize = new ResizeObserver(resize);
+  watchSize.observe(host!);
+  fit = resize;
+  resize();
+
+  renderer.setAnimationLoop((t) => {
+    camera.position.x = Math.sin(t * 0.00006) * 2;
+    camera.position.y = Math.cos(t * 0.00004) * 1;
+    camera.lookAt(0, 0, -5);
+    renderer.render(scene, camera);
+  });
+}
+
+if (typeof document !== "undefined") {
+  const auto = document.querySelector<HTMLElement>("[data-network]");
+  if (auto) mountNetwork(auto);
+}

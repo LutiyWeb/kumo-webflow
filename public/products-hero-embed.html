@@ -1,0 +1,29 @@
+<style>
+.ps-hero {
+  position: relative;
+  z-index: 2;
+  max-width: 1170px;
+  margin: 0 auto;
+  padding: 190px 24px 80px;
+  pointer-events: none;
+}
+.ps-hero__title {
+  margin: 0;
+  font: 700 72px/1.05 "Roboto Mono", monospace;
+  letter-spacing: -1.44px;
+  text-transform: uppercase;
+  color: #fff;
+}
+.ps-hero__title span { display: block; }
+@media (max-width: 991px) {
+  .ps-hero { padding: 140px 20px 60px; }
+  .ps-hero__title { font-size: 48px; letter-spacing: -0.8px; }
+}
+@media (max-width: 479px) {
+  .ps-hero { padding: 120px 16px 48px; }
+  .ps-hero__title { font-size: 36px; }
+}
+</style>
+<div class="ps-hero">
+  <h1 class="ps-hero__title"><span>Kumo</span><span>Services</span></h1>
+</div>

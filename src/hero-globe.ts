@@ -1,12 +1,32 @@
 import * as THREE from "three";
 import maskUrl from "./earth-mask.png";
 
-const container = document.querySelector<HTMLElement>("[data-hero-globe]");
+// Vite отдаёт строку, Next — объект { src }. Оба варианта читаем как URL.
+const maskSrc =
+  typeof maskUrl === "string" ? maskUrl : (maskUrl as { src: string }).src;
 
-if (container) {
+let host: HTMLElement | null = null;
+let watchSize: ResizeObserver | null = null;
+let fit: (() => void) | null = null;
+
+export function mountHeroGlobe(container: HTMLElement) {
+  if (host) {
+    if (host !== container) {
+      const canvas = host.querySelector("canvas");
+      if (canvas) container.appendChild(canvas);
+      watchSize?.disconnect();
+      host = container;
+      watchSize?.observe(host);
+      fit?.();
+    }
+    return;
+  }
+
+  host = container;
+
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  container.appendChild(renderer.domElement);
+  host.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
   // Узкий угол обзора + камера дальше → меньше перспективных искажений,
@@ -353,7 +373,7 @@ if (container) {
   // В dev-режиме карта грузится с localhost, а страница открыта с webflow.io.
   // Без этого браузер запретит читать пиксели «чужой» картинки через getImageData.
   img.crossOrigin = "anonymous";
-  img.src = maskUrl;
+  img.src = maskSrc;
   img.onload = () => {
     const canvas = document.createElement("canvas");
     canvas.width = img.width;
@@ -535,7 +555,7 @@ if (container) {
   };
 
   const resize = () => {
-    const { clientWidth: w, clientHeight: h } = container;
+    const { clientWidth: w, clientHeight: h } = host!;
     renderer.setSize(w, h);
     camera.aspect = w / h;
     // «Сдвиг объектива»: глобус стоит в центре сцены, где нет перспективных искажений,
@@ -546,7 +566,9 @@ if (container) {
     const offset = mobileQuery.matches ? 0 : OFFSET_X;
     camera.setViewOffset(w, h, -w * offset, 0, w, h);
   };
-  new ResizeObserver(resize).observe(container);
+  watchSize = new ResizeObserver(resize);
+  watchSize.observe(host!);
+  fit = resize;
   const MAX_TILT = THREE.MathUtils.degToRad(60); // максимальный поворот за курсором
   const target = { x: 0, y: 0 }; // куда глобус хочет повернуться; догонять будем в цикле
 
@@ -556,7 +578,7 @@ if (container) {
   // Слушаем window, а не canvas: поверх canvas лежит текст слайдера и перехватывает мышь
   window.addEventListener("pointermove", (e) => {
     if (e.pointerType !== "mouse") return; // на тач-устройствах не наклоняем
-    const r = container.getBoundingClientRect();
+    const r = host!.getBoundingClientRect();
     const nx = ((e.clientX - r.left) / r.width) * 2 - 1; // −1 слева … 1 справа
     const ny = ((e.clientY - r.top) / r.height) * 2 - 1; // −1 сверху … 1 снизу
     target.y = nx * MAX_TILT; // мышь вправо → поворот вокруг вертикальной оси
@@ -650,4 +672,9 @@ if (container) {
     }
     renderer.render(scene, camera);
   });
+}
+
+if (typeof document !== "undefined") {
+  const auto = document.querySelector<HTMLElement>("[data-hero-globe]");
+  if (auto) mountHeroGlobe(auto);
 }

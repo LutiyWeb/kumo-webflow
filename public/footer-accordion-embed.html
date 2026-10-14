@@ -1,0 +1,81 @@
+<!-- FOOTER ACCORDION: mobile only. Desktop unchanged. -->
+<style>
+@media (max-width: 767px) {
+  .footer__col {
+    width: 100%;
+    border-bottom: 1px solid rgba(220, 224, 224, 0.2);
+  }
+  .footer__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 14px 0;
+    cursor: pointer;
+    text-decoration: none !important;
+  }
+  .footer__title::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-right: 1.5px solid #dce0e0;
+    border-bottom: 1.5px solid #dce0e0;
+    transform: rotate(45deg);
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+    margin-left: 12px;
+  }
+  .footer__col.is-open .footer__title::after {
+    transform: rotate(-135deg);
+  }
+  .footer__list {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 0 16px;
+  }
+  .footer__col.is-open .footer__list {
+    display: flex;
+  }
+}
+</style>
+<script>
+(function () {
+  if (window.__kumoFooterAccordion) return;
+  window.__kumoFooterAccordion = true;
+
+  function setup() {
+    var mq = window.matchMedia("(max-width: 767px)");
+    var cols = document.querySelectorAll(".footer__col");
+    if (!cols.length) return;
+
+    cols.forEach(function (col) {
+      var title = col.querySelector(".footer__title");
+      if (!title || title.dataset.accordionBound) return;
+      title.dataset.accordionBound = "1";
+
+      title.addEventListener("click", function (e) {
+        if (!mq.matches) return;
+        e.preventDefault();
+        var open = col.classList.contains("is-open");
+        cols.forEach(function (c) { c.classList.remove("is-open"); });
+        if (!open) col.classList.add("is-open");
+      });
+    });
+
+    function onChange() {
+      if (!mq.matches) {
+        cols.forEach(function (c) { c.classList.remove("is-open"); });
+      }
+    }
+    if (mq.addEventListener) mq.addEventListener("change", onChange);
+    else if (mq.addListener) mq.addListener(onChange);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setup);
+  } else {
+    setup();
+  }
+})();
+</script>

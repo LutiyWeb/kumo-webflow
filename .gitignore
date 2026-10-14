@@ -8,7 +8,9 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+.next
 dist-ssr
+*.tsbuildinfo
 *.local
 
 # Editor directories and files

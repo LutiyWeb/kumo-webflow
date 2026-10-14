@@ -1,0 +1,136 @@
+<!-- PRODUCTS MOTION: same style as Home. Products page only. -->
+<script>
+(function () {
+  if (!document.querySelector("[data-products-services], .ps-hero, .section [data-network]")) return;
+  if (!document.querySelector(".ps") && !document.querySelector(".ps-hero")) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (window.__kumoProductsMotion) return;
+  window.__kumoProductsMotion = true;
+
+  function loadScript(src) {
+    return new Promise(function (resolve, reject) {
+      if (window.gsap && src.indexOf("gsap.min") !== -1) return resolve();
+      if (window.ScrollTrigger && src.indexOf("ScrollTrigger") !== -1) return resolve();
+      var existing = document.querySelector('script[src="' + src + '"]');
+      if (existing) {
+        existing.addEventListener("load", resolve);
+        if (window.gsap && src.indexOf("gsap.min") !== -1) return resolve();
+        if (window.ScrollTrigger && src.indexOf("ScrollTrigger") !== -1) return resolve();
+        return;
+      }
+      var s = document.createElement("script");
+      s.src = src;
+      s.onload = resolve;
+      s.onerror = reject;
+      document.head.appendChild(s);
+    });
+  }
+
+  function run(gsap, ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+    var EASE = "power3.out";
+
+    function heroEntrance() {
+      var title = document.querySelector(".ps-hero__title");
+      var nav = document.querySelector(".header");
+      if (!title) return;
+
+      gsap.set(title, { autoAlpha: 0, y: 28 });
+      if (nav) gsap.set(nav, { autoAlpha: 0, y: -12 });
+
+      var tl = gsap.timeline({ defaults: { ease: EASE } });
+      if (nav) tl.to(nav, { autoAlpha: 1, y: 0, duration: 0.55 }, 0.05);
+      tl.to(title, { autoAlpha: 1, y: 0, duration: 0.85 }, 0.15);
+
+      var net = document.querySelector(".animation, [data-network]");
+      if (net) {
+        gsap.fromTo(
+          net,
+          { autoAlpha: 0.35 },
+          { autoAlpha: 1, duration: 1.2, ease: "power2.out", delay: 0.1 }
+        );
+      }
+    }
+
+    function revealServices() {
+      var section = document.querySelector(".ps, [data-products-services]");
+      if (!section) return;
+
+      var headline = section.querySelector(".ps__headline");
+      var cols = section.querySelectorAll(".ps__lead, .ps__copy");
+      var cards = section.querySelectorAll(".ps-card");
+
+      var batch = [];
+      if (headline) batch.push(headline);
+      cols.forEach(function (el) { batch.push(el); });
+      cards.forEach(function (el) { batch.push(el); });
+      if (!batch.length) return;
+
+      gsap.set(batch, { autoAlpha: 0, y: 36 });
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top 82%",
+        once: true,
+        onEnter: function () {
+          var tl = gsap.timeline({ defaults: { ease: EASE } });
+          if (headline) tl.to(headline, { autoAlpha: 1, y: 0, duration: 0.75 }, 0);
+          if (cols.length) {
+            tl.to(cols, { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.1 }, headline ? 0.12 : 0);
+          }
+          if (cards.length) {
+            tl.to(cards, { autoAlpha: 1, y: 0, duration: 0.65, stagger: 0.09 }, "-=0.35");
+          }
+        },
+      });
+    }
+
+    function revealSolutionBuilder() {
+      var sb = document.querySelector("[data-solution-builder], .sb");
+      var section = sb && sb.closest(".section, section");
+      if (!sb || !section) return;
+
+      gsap.set(sb, { autoAlpha: 0, y: 36 });
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top 85%",
+        once: true,
+        onEnter: function () {
+          gsap.to(sb, { autoAlpha: 1, y: 0, duration: 0.8, ease: EASE });
+        },
+      });
+    }
+
+    function softHovers() {
+      document.querySelectorAll(".ps-card").forEach(function (card) {
+        card.addEventListener("mouseenter", function () {
+          gsap.to(card, { y: -6, duration: 0.35, ease: EASE, overwrite: "auto" });
+        });
+        card.addEventListener("mouseleave", function () {
+          gsap.to(card, { y: 0, duration: 0.4, ease: EASE, overwrite: "auto" });
+        });
+      });
+    }
+
+    function init() {
+      heroEntrance();
+      revealServices();
+      revealSolutionBuilder();
+      softHovers();
+      ScrollTrigger.refresh();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  }
+
+  var base = "https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/";
+  loadScript(base + "gsap.min.js")
+    .then(function () { return loadScript(base + "ScrollTrigger.min.js"); })
+    .then(function () { run(window.gsap, window.ScrollTrigger); })
+    .catch(function (err) { console.warn("[kumo] products-motion failed", err); });
+})();
+</script>

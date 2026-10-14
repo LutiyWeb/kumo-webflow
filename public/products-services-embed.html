@@ -1,0 +1,203 @@
+<style>
+.ps {
+  background: #16110d;
+  color: #fff;
+  padding: 100px 0 80px;
+  font-family: "Open Sans", sans-serif;
+}
+.ps__inner {
+  max-width: 1170px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.ps__headline {
+  margin: 0 0 92px;
+  max-width: 970px;
+  font: 700 51px/1.25 "Roboto Mono", monospace;
+  color: #fff;
+}
+.ps__headline .accent { color: #ffbe2e; }
+.ps__cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 80px;
+}
+.ps__lead {
+  margin: 0;
+  padding-top: 50px;
+  border-top: 1px solid rgba(220, 224, 224, 0.35);
+  font: 700 24px/1.5 "Open Sans", sans-serif;
+  color: #fff;
+}
+.ps__copy {
+  margin: 0;
+  padding-top: 50px;
+  font: 400 24px/1.5 "Open Sans", sans-serif;
+  color: #fff;
+}
+.ps__copy p { margin: 0 0 1.5em; }
+.ps__copy p:last-child { margin-bottom: 0; }
+.ps__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+}
+.ps-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 470px;
+  padding: 28px 28px 28px;
+  border: 1px solid #fff;
+  overflow: hidden;
+  text-decoration: none;
+  color: #fff;
+  background: transparent;
+  transition: border-color 0.35s ease;
+}
+.ps-card__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 0.45s ease, transform 0.55s ease;
+  z-index: 0;
+}
+.ps-card__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(22,17,13,0.35) 0%, rgba(22,17,13,0.75) 100%);
+}
+.ps-card__title {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 20px;
+  font: 700 28px/1.2 "Roboto Mono", monospace;
+  text-transform: uppercase;
+  color: #fff;
+}
+.ps-card__text {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font: 400 24px/1.35 "Open Sans", sans-serif;
+  color: #fff;
+  transition: opacity 0.35s ease;
+}
+.ps-card__arrow {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease;
+}
+.ps-card__arrow svg { display: block; }
+.ps-card:hover .ps-card__bg,
+.ps-card:focus-visible .ps-card__bg {
+  opacity: 1;
+  transform: scale(1);
+}
+.ps-card:hover .ps-card__text,
+.ps-card:focus-visible .ps-card__text {
+  opacity: 0.92;
+}
+.ps-card:hover .ps-card__arrow,
+.ps-card:focus-visible .ps-card__arrow {
+  background: #ffbe2e;
+  border-color: #ffbe2e;
+  color: #16110d;
+}
+@media (max-width: 1100px) {
+  .ps__headline { font-size: 40px; margin-bottom: 64px; }
+  .ps__lead, .ps__copy, .ps-card__text { font-size: 20px; }
+  .ps-card__title { font-size: 24px; }
+  .ps-card { min-height: 420px; }
+}
+@media (max-width: 991px) {
+  .ps { padding: 72px 0 64px; }
+  .ps__cols { grid-template-columns: 1fr; gap: 24px; margin-bottom: 56px; }
+  .ps__lead, .ps__copy { padding-top: 28px; }
+  .ps__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+}
+@media (max-width: 767px) {
+  .ps__headline { font-size: 32px; margin-bottom: 40px; }
+  .ps__grid { grid-template-columns: 1fr; }
+  .ps-card { min-height: 380px; }
+  .ps-card__title { font-size: 22px; }
+  .ps-card__text { font-size: 18px; }
+}
+@media (max-width: 479px) {
+  .ps__inner { padding: 0 16px; }
+  .ps__headline { font-size: 28px; }
+}
+</style>
+
+<section class="ps" data-products-services>
+  <div class="ps__inner">
+    <h2 class="ps__headline">
+      Today’s investments in <span class="accent">technology create future</span>
+      for us and our children
+    </h2>
+
+    <div class="ps__cols">
+      <p class="ps__lead">An integrated approach to investing in the development of holistic IT infrastructure creates a "quantum leap" in technology development across countries.</p>
+      <div class="ps__copy">
+        <p>This approach is more cost-effective than one-time investments in separate technologies.</p>
+        <p>Investing in advanced technologies preserves and increases the profitability of investors. Maintaining old technologies is an irreplaceable loss of capital.</p>
+        <p>By creating new technologies and investing in modern solutions, we obtain a huge reduction in the cost of ownership of these technologies, while reaching an increase in return on investment (ROI).</p>
+      </div>
+    </div>
+
+    <div class="ps__grid">
+      <a class="ps-card" href="#">
+        <span class="ps-card__bg" style="background-image:url('https://cdn.prod.website-files.com/6ac3b84ed4c53273782414fe/6ac8b6cf2c8e26af625a917b_hover-software.jpg')"></span>
+        <h3 class="ps-card__title">Software Development</h3>
+        <p class="ps-card__text">KUMO Tech can help you to invent, upgrade or integrate your applications!</p>
+        <span class="ps-card__arrow" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
+        </span>
+      </a>
+      <a class="ps-card" href="#">
+        <span class="ps-card__bg" style="background-image:url('https://cdn.prod.website-files.com/6ac3b84ed4c53273782414fe/6ac8b6d0f868ab0f34113ab2_hover-application.jpg')"></span>
+        <h3 class="ps-card__title">Application Services</h3>
+        <p class="ps-card__text">We consolidate creative personalities and the top to bottom information on a wide innovation range with the yearning to give answers for complex endeavor level difficulties.</p>
+        <span class="ps-card__arrow" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
+        </span>
+      </a>
+      <a class="ps-card" href="#">
+        <span class="ps-card__bg" style="background-image:url('https://cdn.prod.website-files.com/6ac3b84ed4c53273782414fe/6ac8b6d02d8193c7c7629736_hover-consulting.jpg')"></span>
+        <h3 class="ps-card__title">IT Consulting</h3>
+        <p class="ps-card__text">Use the Best Expertise to Strengthen your Software</p>
+        <span class="ps-card__arrow" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
+        </span>
+      </a>
+      <a class="ps-card" href="#">
+        <span class="ps-card__bg" style="background-image:url('https://cdn.prod.website-files.com/6ac3b84ed4c53273782414fe/6ac8b6d07b740179d8683756_hover-managed.jpg')"></span>
+        <h3 class="ps-card__title">Managed IT Services</h3>
+        <p class="ps-card__text">KUMO Tech is ready to become your managed service provider (MSP) to help you escape these challenges.</p>
+        <span class="ps-card__arrow" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
+        </span>
+      </a>
+      <a class="ps-card" href="#">
+        <span class="ps-card__bg" style="background-image:url('https://cdn.prod.website-files.com/6ac3b84ed4c53273782414fe/6ac8b6d10aa9e9d291490a4e_hover-qa.jpg')"></span>
+        <h3 class="ps-card__title">Testing and QA</h3>
+        <p class="ps-card__text">KUMO Tech can take up a testing project of any volume and difficulty, no matter what the challenges are.</p>
+        <span class="ps-card__arrow" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
