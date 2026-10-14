@@ -26,6 +26,13 @@ export function Hero() {
     );
   }, [index]);
 
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setIndex((current) => (current + 1) % total);
+    }, 4000);
+    return () => window.clearTimeout(timer);
+  }, [index, total]);
+
   const go = (next: number) => {
     setIndex((next + total) % total);
   };
