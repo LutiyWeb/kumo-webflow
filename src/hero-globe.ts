@@ -156,6 +156,115 @@ export function mountHeroGlobe(container: HTMLElement) {
   globe.frustumCulled = false;
   tilt.add(globe);
 
+  // ---------- НЕБО ----------
+  // Камера внутри сферы, точки по всей оболочке. Наклон курсором только
+  // показывает другую сторону, поле не пустеет. Своего сдвига нет: иначе
+  // шапка уезжает влево и за кадром остаётся пустота. На слайде с кодом гаснет.
+  const STAR_COUNT = 36000;
+  const starPositions = new Float32Array(STAR_COUNT * 3);
+  const starBright = new Float32Array(STAR_COUNT);
+  const starSize = new Float32Array(STAR_COUNT);
+  for (let i = 0; i < STAR_COUNT; i++) {
+    const z = Math.random() * 2 - 1;
+    const theta = Math.random() * Math.PI * 2;
+    const ring = Math.sqrt(1 - z * z);
+    const radius = 32 + Math.random() * 8;
+    starPositions[i * 3] = ring * Math.cos(theta) * radius;
+    starPositions[i * 3 + 1] = ring * Math.sin(theta) * radius;
+    starPositions[i * 3 + 2] = z * radius;
+    const bright = Math.pow(Math.random(), 2.2);
+    starBright[i] = 0.35 + bright * 0.65;
+    starSize[i] = 0.55 + bright * 2.1;
+  }
+  const starMaterial = new THREE.ShaderMaterial({
+    transparent: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    uniforms: {
+      uFade: { value: 1 },
+      uColor: { value: new THREE.Color(0xffbe2e) },
+      uSize: { value: 2.8 },
+      uPixelRatio: { value: renderer.getPixelRatio() },
+    },
+    vertexShader: /* glsl */ `
+      attribute float aBright;
+      attribute float aSize;
+      uniform float uSize;
+      uniform float uPixelRatio;
+      varying float vBright;
+      void main() {
+        vec4 mv = modelViewMatrix * vec4(position, 1.0);
+        vBright = aBright;
+        gl_PointSize = uSize * aSize * uPixelRatio;
+        gl_Position = projectionMatrix * mv;
+      }
+    `,
+    fragmentShader: /* glsl */ `
+      uniform vec3 uColor;
+      uniform float uFade;
+      varying float vBright;
+      void main() {
+        float d = length(gl_PointCoord - 0.5);
+        float core = smoothstep(0.18, 0.0, d);
+        float halo = exp(-d * 14.0) * 0.45;
+        float edge = smoothstep(0.5, 0.38, d);
+        vec3 color = mix(uColor, vec3(1.0, 0.96, 0.82), core * vBright);
+        gl_FragColor = vec4(color, (core + halo) * edge * vBright * uFade);
+      }
+    `,
+  });
+  const starGeometry = new THREE.BufferGeometry();
+  starGeometry.setAttribute(
+    "position",
+    new THREE.BufferAttribute(starPositions, 3),
+  );
+  starGeometry.setAttribute(
+    "aBright",
+    new THREE.BufferAttribute(starBright, 1),
+  );
+  starGeometry.setAttribute("aSize", new THREE.BufferAttribute(starSize, 1));
+  const stars = new THREE.Points(starGeometry, starMaterial);
+  stars.frustumCulled = false;
+  stars.renderOrder = -1;
+  parallax.add(stars);
+
+  // Мягкая заливка под звёздами: почти чёрный фон и широкое тёплое пятно.
+  // Одна сфера, без текстуры. Крутится вместе с небом, на слайде с кодом гаснет.
+  const skyWashMaterial = new THREE.ShaderMaterial({
+    transparent: true,
+    depthWrite: false,
+    depthTest: false,
+    side: THREE.BackSide,
+    uniforms: {
+      uFade: { value: 1 },
+    },
+    vertexShader: /* glsl */ `
+      varying vec3 vDir;
+      void main() {
+        vDir = normalize(position);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `,
+    fragmentShader: /* glsl */ `
+      uniform float uFade;
+      varying vec3 vDir;
+      void main() {
+        vec3 dir = normalize(vDir);
+        // Видимый кусок сферы: слева почти чёрный, справа слабое тёплое пятно.
+        float t = smoothstep(-0.7, 0.25, dir.x + dir.y * 0.22);
+        vec3 color = vec3(0.09, 0.04, 0.01) * t;
+        gl_FragColor = vec4(color, uFade);
+      }
+    `,
+  });
+  const skyWash = new THREE.Mesh(
+    new THREE.SphereGeometry(22, 48, 32),
+    skyWashMaterial,
+  );
+  skyWash.frustumCulled = false;
+  skyWash.renderOrder = -2;
+  parallax.add(skyWash);
+
   // ---------- ДЫМКА (HAZE) ----------
   // Второй слой под точками: редкие, очень крупные и почти прозрачные пятна только на суше.
   // Перекрываясь, они дают ровное свечение по форме материка, чуть выходящее за его край —
@@ -650,6 +759,8 @@ export function mountHeroGlobe(container: HTMLElement) {
     // всё, что есть только у глобуса, гаснет вместе с морфом
     const fade = 1 - m.value;
     hazeMaterial.uniforms.uFade.value = fade;
+    starMaterial.uniforms.uFade.value = fade;
+    skyWashMaterial.uniforms.uFade.value = fade;
     rim.material.opacity =
       north.material.opacity =
       south.material.opacity =
