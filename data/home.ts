@@ -1,7 +1,10 @@
 export const logoUrl =
   "https://cdn.prod.website-files.com/6ac3b84ed4c53273782414fe/6ac3dde8c1083547e53b2812_logoKumo.png";
 
-export const nav = [{ href: "/products", label: "Products" }];
+export const nav = [
+  { href: "/products", label: "Products" },
+  { href: "/services", label: "Services" },
+];
 
 export const heroSlides = [
   {
