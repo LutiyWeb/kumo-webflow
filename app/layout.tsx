@@ -6,6 +6,7 @@ import "./globals.css";
 
 const openSans = Open_Sans({
   subsets: ["latin"],
+  style: ["normal", "italic"],
   variable: "--font-body",
 });
 

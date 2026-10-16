@@ -4,6 +4,8 @@ export const logoUrl =
 export const nav = [
   { href: "/products", label: "Products" },
   { href: "/services", label: "Services" },
+  { href: "/about", label: "About Us" },
+  { href: "/team", label: "Our Team" },
 ];
 
 export const heroSlides = [

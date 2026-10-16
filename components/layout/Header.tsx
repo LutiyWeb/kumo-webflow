@@ -2,12 +2,17 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { logoUrl, nav } from "@/data/home";
 
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    setReady(true);
+  }, []);
 
   return (
     <header className="header">
@@ -28,7 +33,9 @@ export function Header() {
         </button>
         <nav className={open ? "header__nav is-open" : "header__nav"}>
           {nav.map((item) => {
-            const current = pathname === item.href;
+            const current =
+              ready &&
+              (pathname === item.href || pathname.startsWith(`${item.href}/`));
             return (
               <Link
                 key={item.href}
