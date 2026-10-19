@@ -8,17 +8,16 @@ const maskSrc =
 let host: HTMLElement | null = null;
 let watchSize: ResizeObserver | null = null;
 let fit: (() => void) | null = null;
+let reattach: ((container: HTMLElement) => void) | null = null;
+let park: (() => void) | null = null;
+
+export function unmountHeroGlobe() {
+  park?.();
+}
 
 export function mountHeroGlobe(container: HTMLElement) {
-  if (host) {
-    if (host !== container) {
-      const canvas = host.querySelector("canvas");
-      if (canvas) container.appendChild(canvas);
-      watchSize?.disconnect();
-      host = container;
-      watchSize?.observe(host);
-      fit?.();
-    }
+  if (reattach) {
+    reattach(container);
     return;
   }
 
@@ -665,6 +664,7 @@ export function mountHeroGlobe(container: HTMLElement) {
 
   const resize = () => {
     const { clientWidth: w, clientHeight: h } = host!;
+    if (w < 1 || h < 1) return;
     renderer.setSize(w, h);
     camera.aspect = w / h;
     // «Сдвиг объектива»: глобус стоит в центре сцены, где нет перспективных искажений,
@@ -684,16 +684,21 @@ export function mountHeroGlobe(container: HTMLElement) {
   let hovering = false; // курсор над hero?
   let spin = 0.0015; // текущая скорость автовращения
 
-  // Слушаем window, а не canvas: поверх canvas лежит текст слайдера и перехватывает мышь
-  window.addEventListener("pointermove", (e) => {
+  // Слушаем window, а не canvas: поверх canvas лежит текст слайдера и перехватывает мышь.
+  // Пока герой размонтирован, контейнер вне страницы и его размер 0.
+  // Деление на этот размер уводит наклон в бесконечность, и сцена уже не восстанавливается.
+  const onPointerMove = (e: PointerEvent) => {
     if (e.pointerType !== "mouse") return; // на тач-устройствах не наклоняем
-    const r = host!.getBoundingClientRect();
+    if (!host?.isConnected) return;
+    const r = host.getBoundingClientRect();
+    if (r.width < 1 || r.height < 1) return;
     const nx = ((e.clientX - r.left) / r.width) * 2 - 1; // −1 слева … 1 справа
     const ny = ((e.clientY - r.top) / r.height) * 2 - 1; // −1 сверху … 1 снизу
     target.y = nx * MAX_TILT; // мышь вправо → поворот вокруг вертикальной оси
     target.x = ny * MAX_TILT; // мышь вниз → поворот вокруг горизонтальной оси
     hovering = Math.abs(nx) <= 1 && Math.abs(ny) <= 1;
-  });
+  };
+  window.addEventListener("pointermove", onPointerMove);
   document.addEventListener("mouseleave", () => {
     hovering = false;
     target.x = target.y = 0;
@@ -725,9 +730,11 @@ export function mountHeroGlobe(container: HTMLElement) {
   // Следим за этим и шлём kumo:morph: слайд 1 → 0 (глобус), слайд 2 → 1 (сетка).
   // В песочнице слайдера нет — блок просто не сработает.
   const slider = document.querySelector("[data-hero-slider]");
+  let slideWatch: MutationObserver | null = null;
   if (slider) {
     let lastSlide = -1;
     const syncSlide = () => {
+      if (!slider.isConnected) return;
       const dots = Array.from(slider.querySelectorAll(".w-slider-dot"));
       const index = dots.findIndex((dot) => dot.classList.contains("w-active"));
       if (index < 0 || index === lastSlide) return; // точек ещё нет или слайд не сменился
@@ -738,7 +745,8 @@ export function mountHeroGlobe(container: HTMLElement) {
     };
     // subtree + childList: точки создаёт скрипт Webflow уже после загрузки;
     // attributeFilter: из атрибутов реагируем только на смену классов
-    new MutationObserver(syncSlide).observe(slider, {
+    slideWatch = new MutationObserver(syncSlide);
+    slideWatch.observe(slider, {
       subtree: true,
       childList: true,
       attributes: true,
@@ -747,10 +755,16 @@ export function mountHeroGlobe(container: HTMLElement) {
     syncSlide();
   }
 
-  renderer.setAnimationLoop((time) => {
+  const frame = (time: number) => {
     material.uniforms.uTime.value = time / 1000; // в секундах
     spin += ((hovering ? 0 : 0.0015) - spin) * 0.05;
     globe.rotation.y += spin;
+    if (!Number.isFinite(target.x) || !Number.isFinite(target.y)) {
+      target.x = 0;
+      target.y = 0;
+    }
+    if (!Number.isFinite(parallax.rotation.x)) parallax.rotation.x = 0;
+    if (!Number.isFinite(parallax.rotation.y)) parallax.rotation.y = 0;
     parallax.rotation.x += (target.x - parallax.rotation.x) * 0.05;
     parallax.rotation.y += (target.y - parallax.rotation.y) * 0.05;
     // uMorph плавно догоняет цель — тот же lerp, что у курсора
@@ -782,7 +796,34 @@ export function mountHeroGlobe(container: HTMLElement) {
       (f.sprite.material as THREE.SpriteMaterial).opacity = show * fade;
     }
     renderer.render(scene, camera);
-  });
+  };
+  renderer.setAnimationLoop(frame);
+
+  park = () => {
+    hovering = false;
+    target.x = 0;
+    target.y = 0;
+    slideWatch?.disconnect();
+    slideWatch = null;
+    renderer.setAnimationLoop(null);
+  };
+
+  reattach = (next) => {
+    if (host && host !== next) {
+      const canvas = host.querySelector("canvas");
+      if (canvas) next.appendChild(canvas);
+      watchSize?.disconnect();
+    }
+    host = next;
+    watchSize?.observe(host);
+    hovering = false;
+    target.x = 0;
+    target.y = 0;
+    if (!Number.isFinite(parallax.rotation.x)) parallax.rotation.x = 0;
+    if (!Number.isFinite(parallax.rotation.y)) parallax.rotation.y = 0;
+    renderer.setAnimationLoop(frame);
+    resize();
+  };
 }
 
 if (typeof document !== "undefined") {

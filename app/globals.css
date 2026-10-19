@@ -1084,8 +1084,8 @@ img { max-width: 100%; }
   position: relative;
   display: flex;
   align-items: flex-start;
-  min-height: 700px;
-  padding: 150px 0 80px;
+  aspect-ratio: 1920 / 700;
+  padding: 7.8125vw 0 4.1667vw;
   overflow: hidden;
   background: var(--bg-dark);
 }
@@ -1096,7 +1096,7 @@ img { max-width: 100%; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 38%;
+  object-position: center;
 }
 
 .about-hero::after {
@@ -1108,14 +1108,8 @@ img { max-width: 100%; }
 
 .about-hero .container { position: relative; z-index: 1; }
 
-.about-crumb {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.5;
-}
-
 .about-hero h1 {
-  margin: 112px 0 0;
+  margin: 5.833vw 0 0;
   font-family: var(--font-heading), "Roboto Mono", sans-serif;
   font-size: 72px;
   font-weight: 700;
@@ -1323,7 +1317,7 @@ img { max-width: 100%; }
 }
 
 @media (max-width: 767px) {
-  .about-hero { min-height: 560px; padding-top: 120px; }
+  .about-hero { aspect-ratio: auto; width: 100%; min-height: 560px; padding-top: 120px; }
   .about-hero h1 { margin-top: 48px; font-size: 48px; }
   .about-body { padding: 50px 0; }
   .about-strategy { font-size: 32px; }

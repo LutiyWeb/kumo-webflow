@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import Link from "next/link";
 
 const arrow = (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -145,11 +144,6 @@ export default function AboutPage() {
         <img className="about-hero__photo" src="/about/hero.png" alt="" />
         <p className="listing-mark">About us</p>
         <div className="container">
-          <p className="about-crumb">
-            <Link href="/">Home</Link>
-            {" > "}
-            About Us
-          </p>
           <h1>About US</h1>
         </div>
       </section>

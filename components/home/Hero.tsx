@@ -11,12 +11,15 @@ export function Hero() {
   useEffect(() => {
     const node = document.querySelector<HTMLElement>("[data-hero-globe]");
     if (!node) return;
-    let cancelled = false;
-    import("../../src/hero-globe").then((mod) => {
-      if (!cancelled) mod.mountHeroGlobe(node);
+    let alive = true;
+    const modPromise = import("../../src/hero-globe");
+    modPromise.then((mod) => {
+      if (!alive) return;
+      mod.mountHeroGlobe(node);
     });
     return () => {
-      cancelled = true;
+      alive = false;
+      modPromise.then((mod) => mod.unmountHeroGlobe());
     };
   }, []);
 
