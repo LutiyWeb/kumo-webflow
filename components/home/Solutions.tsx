@@ -2,7 +2,7 @@ import { solutions } from "@/data/home";
 
 export function Solutions() {
   return (
-    <section className="section section--dark">
+    <section className="section">
       <div className="container">
         <h2 className="section-title solutions__title">
           {solutions.title}{" "}

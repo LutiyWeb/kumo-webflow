@@ -29,13 +29,6 @@ export function Hero() {
     );
   }, [index]);
 
-  useEffect(() => {
-    const timer = window.setTimeout(() => {
-      setIndex((current) => (current + 1) % total);
-    }, 10000);
-    return () => window.clearTimeout(timer);
-  }, [index, total]);
-
   const go = (next: number) => {
     setIndex((next + total) % total);
   };
@@ -45,14 +38,15 @@ export function Hero() {
       <div className="hero__globe" data-hero-globe />
       <div className="container hero__content" data-hero-slider>
         <div className="hero__copy">
+          <p className="hero__eyebrow">{slide.eyebrow}</p>
           <h1 className="hero__title">
             {slide.title}{" "}
             {slide.accent ? <span className="accent">{slide.accent}</span> : null}
           </h1>
-          <p className="hero__subtitle">
-            {slide.kicker} <span className="accent">{slide.kickerAccent}</span>{" "}
-            {slide.kickerRest}
-          </p>
+          {slide.text ? <p className="hero__subtitle">{slide.text}</p> : null}
+          <a className="button-outline hero__cta" href="#top">
+            {slide.cta}
+          </a>
         </div>
         <div className="hero__controls">
           <button

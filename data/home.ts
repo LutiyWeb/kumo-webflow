@@ -10,29 +10,29 @@ export const nav = [
 
 export const heroSlides = [
   {
-    id: "solutions",
-    title: "PROVIDING SOLUTIONS",
-    accent: "",
-    kicker: "ON",
-    kickerAccent: "THE VERGE",
-    kickerRest: "OF THE POSSIBLE",
+    id: "development",
+    eyebrow: "Website development + support after launch",
+    title: "We build websites and interfaces — and",
+    accent: "we don't disappear once they're live",
+    text: "Full-cycle development + technical support on subscription.",
+    cta: "Discuss a project",
   },
   {
-    id: "technologies",
-    title: "EMERGING",
-    accent: "TECHNOLOGIES",
-    kicker: "ON",
-    kickerAccent: "THE VERGE",
-    kickerRest: "OF THE POSSIBLE",
+    id: "support",
+    eyebrow: "Support & growth",
+    title: "We fix what breaks —",
+    accent: "before your clients notice",
+    text: "",
+    cta: "Support plans",
   },
 ];
 
 export const solutions = {
-  title: "Digital solutions",
-  titleAccent: "for real-world business challenges",
-  lead: "The world shifts to safer and more productive ways of doing business. At KUMO Tech we have proven experience and insight that help your business shoot up with our cutting-edge dev team.",
-  note: "Take a step into the future of business efficiency and explore what KUMO Tech has to offer.",
-  cta: "View all solutions",
+  title: "When something breaks on your site —",
+  titleAccent: "we're already on it",
+  lead: "Hotfix, 24/7 uptime monitoring and SLA response — frontend and backend in one plan.",
+  note: "24/7 monitoring & support",
+  cta: "Choose a plan",
   image:
     "https://cdn.prod.website-files.com/6ac3b84ed4c53273782414fe/6ac3e6e8cde6b5609994d6ac_solutions-team.jpg",
   alt: "KUMO team working together at a table",

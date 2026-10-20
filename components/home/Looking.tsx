@@ -2,7 +2,7 @@ import { looking } from "@/data/home";
 
 export function Looking() {
   return (
-    <section className="section section--dark">
+    <section className="section">
       <div className="container">
         <h2 className="section-title looking__title">
           {looking.title} <span className="accent">{looking.titleAccent}</span>
