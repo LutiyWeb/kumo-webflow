@@ -1,0 +1,205 @@
+.looking {
+  &__title {
+    max-width: 470px;
+  }
+  &__lead {
+    width: min(570px, 62%);
+    margin-top: 50px;
+    margin-left: min(400px, 34.2%);
+    color: var(--bg-light);
+  }
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 28px;
+    max-width: 1138px;
+    margin-top: 89px;
+    align-items: start;
+    min-height: 355px;
+  }
+  &__cards:has(.card:hover) .card--open:not(:hover),
+  &__cards:has(.card:focus-within) .card--open:not(:focus-within) {
+    border-color: #f0f0f040;
+  }
+  &__cards:has(.card:hover) .card--open:not(:hover) .card__details,
+  &__cards:has(.card:focus-within)
+    .card--open:not(:focus-within)
+    .card__details {
+    grid-template-rows: 0fr;
+    opacity: 0;
+  }
+  @media (max-width: 991px) {
+    &__cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 20px;
+    }
+  }
+  @media (max-width: 767px) {
+    &__title {
+      max-width: 260px;
+    }
+    &__cards {
+      grid-template-columns: 1fr;
+    }
+    &__lead {
+      width: auto;
+      margin-top: 30px;
+      margin-left: 0;
+    }
+    &__cards {
+      row-gap: 20px;
+      margin-top: 30px;
+    }
+  }
+}
+
+.card {
+  position: relative;
+  min-height: 0;
+  padding: 32px 22px 26px;
+  border: 2px solid #f0f0f040;
+  cursor: pointer;
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease;
+  &--open {
+    border-color: var(--accent);
+  }
+  &:hover,
+  &:focus-within {
+    transform: translateY(-6px);
+    border-color: var(--accent);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+  &__badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+  &__title {
+    margin: 0;
+    padding-bottom: 19px;
+    border-bottom: 2px solid var(--accent);
+    color: #fff;
+    font-size: 24px;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+  &__price {
+    margin: 18px 0 0;
+    color: var(--accent);
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  &__details {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition:
+      grid-template-rows 0.35s ease,
+      opacity 0.3s ease;
+  }
+  &--open &__details,
+  &:hover &__details,
+  &:focus-within &__details {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+  &__details-inner {
+    overflow: hidden;
+  }
+  &__meta {
+    margin: 16px 0 0;
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  &__features {
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  &__features li {
+    position: relative;
+    padding-left: 16px;
+    color: var(--line);
+    font-size: 15px;
+    line-height: 1.45;
+  }
+  &__features li + li {
+    margin-top: 8px;
+  }
+  &__features li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  &__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    margin-top: 18px;
+    padding: 12px 14px;
+    border: 2px solid var(--line);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+    text-align: center;
+    text-transform: uppercase;
+    transition:
+      color 0.3s ease,
+      border-color 0.3s ease;
+  }
+  &__cta:hover,
+  &__cta:focus-visible {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  &__cta:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+  @media (max-width: 991px) {
+    & {
+      padding: 30px 23px;
+    }
+    &__title {
+      white-space: normal;
+    }
+  }
+  @media (max-width: 767px) {
+    & {
+      min-height: 0;
+      padding: 18px 18px 20px;
+    }
+    &__title {
+      padding-bottom: 15px;
+      font-size: 20px;
+    }
+    &__price {
+      margin-top: 14px;
+      font-size: 20px;
+    }
+    &__features li {
+      font-size: 13px;
+    }
+  }
+}

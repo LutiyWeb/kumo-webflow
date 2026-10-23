@@ -41,7 +41,9 @@ export function Hero() {
           <p className="hero__eyebrow">{slide.eyebrow}</p>
           <h1 className="hero__title">
             {slide.title}{" "}
-            {slide.accent ? <span className="accent">{slide.accent}</span> : null}
+            {slide.accent ? (
+              <span className="accent accent--block">{slide.accent}</span>
+            ) : null}
           </h1>
           {slide.text ? <p className="hero__subtitle">{slide.text}</p> : null}
           <a className="button-outline hero__cta" href="#top">

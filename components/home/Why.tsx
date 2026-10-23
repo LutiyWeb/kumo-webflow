@@ -20,7 +20,7 @@ export function Why() {
                 <p className="why__num">{item.num}</p>
                 <div>
                   <h3>{item.title}</h3>
-                  <p>{item.text}</p>
+                  <p className="why__text">{item.text}</p>
                 </div>
               </article>
             ))}

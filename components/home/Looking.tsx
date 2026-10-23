@@ -10,9 +10,27 @@ export function Looking() {
         <p className="lead looking__lead">{looking.lead}</p>
         <div className="looking__cards">
           {looking.cards.map((card) => (
-            <article key={card.title} className="card">
+            <article
+              key={card.title}
+              className={card.open ? "card card--open" : "card"}
+              tabIndex={0}
+            >
+              {card.badge ? <span className="card__badge">{card.badge}</span> : null}
               <h3 className="card__title">{card.title}</h3>
-              <p className="card__text">{card.text}</p>
+              <p className="card__price">{card.price}</p>
+              <div className="card__details">
+                <div className="card__details-inner">
+                  <p className="card__meta">{card.meta}</p>
+                  <ul className="card__features">
+                    {card.features.map((feature) => (
+                      <li key={feature}>{feature}</li>
+                    ))}
+                  </ul>
+                  <a className="card__cta" href="#top">
+                    {card.cta}
+                  </a>
+                </div>
+              </div>
             </article>
           ))}
         </div>

@@ -12,16 +12,16 @@ export const heroSlides = [
   {
     id: "development",
     eyebrow: "Website development + support after launch",
-    title: "We build websites and interfaces — and",
-    accent: "we don't disappear once they're live",
+    title: "We build websites",
+    accent: "and we don't leave",
     text: "Full-cycle development + technical support on subscription.",
     cta: "Discuss a project",
   },
   {
     id: "support",
     eyebrow: "Support & growth",
-    title: "We fix what breaks —",
-    accent: "before your clients notice",
+    title: "We fix what breaks",
+    accent: "before you notice",
     text: "",
     cta: "Support plans",
   },
@@ -39,69 +39,82 @@ export const solutions = {
 };
 
 export const looking = {
-  title: "What are you",
-  titleAccent: "looking for?",
-  lead: "Regardless of what you are looking for: developing from scratch, system integration or complete business transformation with the help of most advanced technologies — we are looking to provide the most suitable solution.",
+  title: "Support",
+  titleAccent: "plans",
+  lead: "We support any website, even if we didn't build it — choose the hours you need.",
   cards: [
     {
-      title: "Technology Consulting",
-      text: "Strategy consulting for enterprises looking to empower businesses with AI, AR, Big Data, IoT & Cloud products.",
+      title: "Solo",
+      price: "from $49/mo",
+      meta: "up to 2 hrs/mo",
+      features: ["Minor content edits", "Uptime monitoring", "Email support"],
+      cta: "Choose Solo",
     },
     {
-      title: "Projects Management",
-      text: "Our teams are here to help you build whatever IT solution is needed to drive competitors mad.",
+      title: "Base",
+      price: "from $99/mo",
+      meta: "up to 5 hrs/mo",
+      features: ["Everything in Solo", "Layout & style edits", "Dependency updates"],
+      cta: "Choose Base",
     },
     {
-      title: "Dedicated Teams",
-      text: "Long-term development. Direct collaboration or managed teams of different sizes and expertise.",
+      title: "Pro",
+      price: "from $249/mo",
+      meta: "up to 15 hrs/mo",
+      badge: "Popular",
+      open: true,
+      features: ["Everything in Base", "Priority task queue", "Monthly work report"],
+      cta: "Choose Pro",
+    },
+    {
+      title: "Enterprise",
+      price: "On request",
+      meta: "from 30 hrs/mo",
+      features: ["Everything in Pro", "Dedicated manager", "24/7 call/chat"],
+      cta: "Choose Enterprise",
     },
   ],
 };
 
 export const streams = {
-  title: "We create new value streams across functional areas",
+  title: "Recent cases",
   slides: [
     {
-      title: "Smart, connected products",
-      text: "We are fully equipped to develop and customize IoT platforms for smart, connected products",
-      image:
-        "https://cdn.prod.website-files.com/6ac3b84ed4c53273782414fe/6ac51d85153caf1b7fb593b0_streams-smart-products.jpg",
-      alt: "Aerial view of a smart city at night",
+      id: "honey",
+      title: "Honey Store",
+      tags: ["E-commerce", "Nuxt 3", "TypeScript", "Pinia", "Fastify", "PostgreSQL"],
+      summary: "Electronics store with a catalog, cart, wishlist, and admin.",
+      text: "Electronics and accessories online store: an SSR catalog of 8,000+ products with faceted filters (category, brand, price), a cart, a wishlist, and an admin panel for products and banners. Frontend on Nuxt 3, backend on Fastify + PostgreSQL with stock sync from the supplier.",
+      images: [
+        "https://www.luar.it.com/images/honey-store-home.webp",
+        "https://www.luar.it.com/images/honey-store-products.webp",
+        "https://www.luar.it.com/images/honey-store-catalog.webp",
+        "https://www.luar.it.com/images/honey-store-product.jpg",
+      ],
+      demo: "https://honey-store-ua.vercel.app/",
     },
     {
-      title: "Industrial IoT",
-      text: "We design and implement end-to-end IIoT solutions to help businesses",
-      image:
-        "https://cdn.prod.website-files.com/6ac3b84ed4c53273782414fe/6ac51d858c481a7bfa23f03b_streams-industrial-iot.jpg",
-      alt: "Industrial robots at a production line",
+      id: "bloom",
+      title: "Bloom Their Day",
+      tags: ["E-commerce", "Next.js", "React", "GraphQL", "Vercel"],
+      summary: "Flower delivery with a catalog, reviews, and a cart.",
+      text: "Same-day flower delivery service: bouquet catalog by occasion (birthday, anniversary, sympathy, congratulations), ZIP-code delivery availability check, product reviews and ratings, wishlist and cart. Frontend on Next.js (React, Turbopack) with a GraphQL API and built-in image optimization, hosted on Vercel.",
+      images: [
+        "https://www.luar.it.com/images/bloom-their-day-home.webp",
+        "https://www.luar.it.com/images/bloom-their-day-categories.webp",
+        "https://www.luar.it.com/images/bloom-their-day-catalog.webp",
+        "https://www.luar.it.com/images/bloom-their-day-product.jpg",
+      ],
+      demo: "https://www.bloomtheirday.com/",
     },
     {
-      title: "Medical IoT",
-      text: "We build connected medical devices and remote patient monitoring",
-      image:
-        "https://cdn.prod.website-files.com/6ac3b84ed4c53273782414fe/6ac51d86e6185f44ffb9d7a1_streams-medical-iot.jpg",
-      alt: "Connected medical devices in healthcare",
-    },
-    {
-      title: "Smart fleet management",
-      text: "We delivers fleet management applications, helping fleet owners",
-      image:
-        "https://cdn.prod.website-files.com/6ac3b84ed4c53273782414fe/6ac51deb0b687b8339664dd0_streams-fleet.jpg",
-      alt: "Smart transportation and fleet management",
-    },
-    {
-      title: "Smart cities and smart utilities",
-      text: "We design and implement end-to-end solutions tailored to the needs of a particular city.",
-      image:
-        "https://cdn.prod.website-files.com/6ac3b84ed4c53273782414fe/6ac51debcec18a284e65dc61_streams-smart-cities.jpg",
-      alt: "Smart city infrastructure",
-    },
-    {
-      title: "Smart supply chain management",
-      text: "We help to implement and operationalize it for achieving transparency and driving effectiveness",
-      image:
-        "https://cdn.prod.website-files.com/6ac3b84ed4c53273782414fe/6ac51deb8bc5f3f3c15362d8_streams-supply-chain.jpg",
-      alt: "Smart logistics and supply chain",
+      id: "soon",
+      title: "New case — coming soon",
+      tags: ["UI/UX", "Vue", "Nuxt", "TypeScript"],
+      summary: "A short summary will be added once the case is confirmed.",
+      text: "Short task and result summary — will be added once confirmed.",
+      images: ["https://picsum.photos/seed/luar-case-3/640/480"],
+      demo: "",
     },
   ],
 };
@@ -175,6 +188,22 @@ export const industries = {
       alt: "Retail store owner",
     },
   ],
+};
+
+export const ready = {
+  title: "Ready to start",
+  titleAccent: "a project?",
+  lead: "Tell us about your task — we’ll reply within 1 business day.",
+  name: "Name",
+  email: "E-mail",
+  topic: "Topic",
+  message: "Text your message here",
+  send: "Send",
+  sent: "Sent",
+  noteBefore: "Sending us a message means you’re okay with our ",
+  terms: "Terms of Use",
+  noteMid: " and ",
+  privacy: "Privacy Policy",
 };
 
 export const footerColumns = [

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Open_Sans, Roboto_Mono } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
-import "./globals.css";
+import "./globals.scss";
 
 const openSans = Open_Sans({
   subsets: ["latin"],
