@@ -16,7 +16,7 @@ if (m) {
 		depthWrite: !1,
 		blending: 2,
 		uniforms: {
-			uColor: { value: new t(16763904) },
+			uColor: { value: new t(16580663) },
 			uSize: { value: 5 },
 			uPixelRatio: { value: h.getPixelRatio() },
 			uTime: { value: 0 },
@@ -32,7 +32,7 @@ if (m) {
 		blending: 2,
 		uniforms: {
 			uFade: { value: 1 },
-			uColor: { value: new t(16763904) },
+			uColor: { value: new t(16580663) },
 			uSize: { value: 34 },
 			uOpacity: { value: .08 },
 			uPixelRatio: { value: h.getPixelRatio() }
@@ -50,14 +50,14 @@ if (m) {
 		}));
 	}, D = E((e, t) => {
 		let n = t / 2, r = e.createRadialGradient(n, n, 0, n, n, n);
-		r.addColorStop(.818, "rgba(255,204,0,0)"), r.addColorStop(.83, "rgba(255,204,0,0.5)"), r.addColorStop(.842, "rgba(255,204,0,0)"), e.fillStyle = r, e.fillRect(0, 0, t, t), e.globalCompositeOperation = "destination-in";
+		r.addColorStop(.818, "rgba(253,0,55,0)"), r.addColorStop(.83, "rgba(253,0,55,0.5)"), r.addColorStop(.842, "rgba(253,0,55,0)"), e.fillStyle = r, e.fillRect(0, 0, t, t), e.globalCompositeOperation = "destination-in";
 		let i = e.createLinearGradient(0, t, t, 0);
 		i.addColorStop(0, "rgba(0,0,0,0.3)"), i.addColorStop(.55, "rgba(0,0,0,0.4)"), i.addColorStop(1, "rgba(0,0,0,1)"), e.fillStyle = i, e.fillRect(0, 0, t, t);
 	}), O = _.position.z, k = v * O / Math.sqrt(O * O - v * v);
 	D.scale.setScalar(k * 2 * 1.02 / .83), g.add(D);
 	let A = () => E((e, t) => {
 		let n = t / 2, r = e.createRadialGradient(n, n, 0, n, n, n);
-		r.addColorStop(0, "rgba(255,220,90,0.8)"), r.addColorStop(.12, "rgba(255,204,0,0.35)"), r.addColorStop(.5, "rgba(255,204,0,0.06)"), r.addColorStop(1, "rgba(255,204,0,0)"), e.fillStyle = r, e.fillRect(0, 0, t, t);
+		r.addColorStop(0, "rgba(253,0,55,0.8)"), r.addColorStop(.12, "rgba(253,0,55,0.35)"), r.addColorStop(.5, "rgba(253,0,55,0.06)"), r.addColorStop(1, "rgba(253,0,55,0)"), e.fillStyle = r, e.fillRect(0, 0, t, t);
 	}), j = A();
 	j.scale.set(1.5, .28, 1), j.position.set(-k * .12, k * .985, 0), j.material.rotation = f.degToRad(6);
 	let M = A();
@@ -77,7 +77,7 @@ if (m) {
 			sprite: l,
 			z: a[2]
 		}), l;
-	}, I = "#ffb21e", L = (e, t) => e + Math.random() * (t - e);
+	}, I = "#fd0037", L = (e, t) => e + Math.random() * (t - e);
 	for (let e of [
 		4,
 		-6,

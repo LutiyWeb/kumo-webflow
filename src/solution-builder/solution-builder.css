@@ -1,5 +1,5 @@
 .sb {
-  --accent: #ffbe2e;
+  --accent: #fd0037;
   --line: rgba(220, 224, 224, 0.2);
   --muted: #c4c4c4;
   max-width: 1170px;
@@ -71,7 +71,7 @@
 }
 .sb-option.is-selected {
   border-color: var(--accent);
-  background: rgba(255, 190, 46, 0.06);
+  background: rgba(253, 0, 55, 0.06);
 }
 .sb-option__dot {
   width: 16px;
