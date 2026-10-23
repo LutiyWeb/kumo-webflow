@@ -469,7 +469,7 @@ export function mountHeroGlobe(container: HTMLElement) {
   ] as const) {
     makeSprite(256, 96, 0.3, [x, y, z], (ctx) => {
       ctx.font = "bold 72px monospace";
-      ctx.fillStyle = "#ffd36a";
+      ctx.fillStyle = AMBER;
       ctx.shadowColor = AMBER;
       ctx.shadowBlur = 18;
       ctx.fillText(text, 12, 74);

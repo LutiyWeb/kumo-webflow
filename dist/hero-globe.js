@@ -154,7 +154,7 @@ if (m) {
 		n,
 		r
 	], (t) => {
-		t.font = "bold 72px monospace", t.fillStyle = "#ffd36a", t.shadowColor = I, t.shadowBlur = 18, t.fillText(e, 12, 74);
+		t.font = "bold 72px monospace", t.fillStyle = "#fd0037", t.shadowColor = I, t.shadowBlur = 18, t.fillText(e, 12, 74);
 	});
 	let z = new Image();
 	z.crossOrigin = "anonymous", z.src = p, z.onload = () => {
