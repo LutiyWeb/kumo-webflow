@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { productCards, productsCopy } from "@/data/products";
 
 export function ProductsServices() {
@@ -19,7 +20,11 @@ export function ProductsServices() {
         </div>
         <div className="products-services__grid">
           {productCards.map((card) => (
-            <a key={card.title} className="product-card" href="#top">
+            <Link
+              key={card.title}
+              className="product-card"
+              href={card.href ?? "/in-development"}
+            >
               <span
                 className="product-card__bg"
                 style={{ backgroundImage: `url(${card.image})` }}
@@ -35,7 +40,7 @@ export function ProductsServices() {
                   />
                 </svg>
               </span>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

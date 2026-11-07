@@ -1,11 +1,51 @@
 export const logoUrl =
   "https://cdn.prod.website-files.com/6ac3b84ed4c53273782414fe/6ac3dde8c1083547e53b2812_logoKumo.png";
 
-export const nav = [
-  { href: "/products", label: "Products" },
-  { href: "/services", label: "Services" },
-  { href: "/about", label: "About Us" },
-  { href: "/team", label: "Our Team" },
+export interface NavChildItem {
+  href: string;
+  label: string;
+}
+
+export interface NavItem {
+  href: string;
+  label: string;
+  children?: NavChildItem[];
+}
+
+export const nav: NavItem[] = [
+  {
+    href: "/products",
+    label: "Products",
+    children: [{ href: "/products/servers", label: "Servers" }],
+  },
+  {
+    href: "/services",
+    label: "Services",
+    children: [
+      { href: "/services/application-services", label: "Application Services" },
+      { href: "/services/it-consulting", label: "IT consulting" },
+    ],
+  },
+  {
+    href: "/solutions",
+    label: "Solutions",
+    children: [
+      { href: "/solutions/iot", label: "Internet of Things" },
+      { href: "/solutions/5g", label: "5G Technology" },
+    ],
+  },
+  {
+    href: "/about",
+    label: "About Us",
+    children: [
+      { href: "/team", label: "Our Team" },
+      { href: "/careers", label: "Careers" },
+    ],
+  },
+  {
+    href: "/contact",
+    label: "Contact Us",
+  },
 ];
 
 export const heroSlides = [
@@ -209,43 +249,32 @@ export const ready = {
 export const footerColumns = [
   {
     title: "Products",
-    links: ["Servers", "Integrated systems", "IoT empowered devices"],
+    href: "/products",
+    links: [{ label: "Servers", href: "/products/servers" }],
   },
   {
     title: "Services",
+    href: "/services",
     links: [
-      "Software development",
-      "Application Services",
-      "IT consulting",
-      "Managed IT services",
-      "Testing and QA",
+      { label: "Application Services", href: "/services/application-services" },
+      { label: "IT consulting", href: "/services/it-consulting" },
     ],
   },
   {
     title: "Solutions",
+    href: "/solutions",
     links: [
-      "Artificial Intelligence",
-      "Big Data",
-      "Machine and AI Vision",
-      "IoT",
-      "Smart everything",
-      "Cyber Security",
-      "5G",
+      { label: "Internet of Things", href: "/solutions/iot" },
+      { label: "5G Technology", href: "/solutions/5g" },
     ],
   },
   {
     title: "About Us",
+    href: "/about",
     links: [
-      "Emerging Technologies",
-      "IT Integration",
-      "IT Transformation",
-      "Security Transformation",
-      "Our Team",
-      "Kumo Group",
-      "Social Impact",
-      "Newsroom",
-      "Careers",
-      "Contact us",
+      { label: "Our Team", href: "/team" },
+      { label: "Careers", href: "/careers" },
+      { label: "Contact Us", href: "/contact" },
     ],
   },
 ];

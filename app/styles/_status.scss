@@ -1,0 +1,110 @@
+.status-page {
+  background: var(--bg-dark);
+  min-height: 900px;
+  &--404 {
+    padding: 192px 0 150px;
+  }
+  &--dev {
+    padding: 315px 0 150px;
+  }
+  &__box {
+    padding-left: 200px;
+  }
+  &__code {
+    margin: 0;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--accent);
+    font-family: var(--font-heading), "Roboto Mono", sans-serif;
+    font-size: 200px;
+    font-weight: 700;
+    line-height: 224px;
+  }
+  &__title {
+    margin: 30px 0 0;
+    font-family: var(--font-heading), "Roboto Mono", sans-serif;
+    font-size: 51px;
+    font-weight: 700;
+    line-height: 67px;
+  }
+  &__headline {
+    max-width: 970px;
+    margin: 0;
+    font-family: var(--font-heading), "Roboto Mono", sans-serif;
+    font-size: 72px;
+    font-weight: 700;
+    line-height: 95px;
+    letter-spacing: -1.44px;
+    text-transform: uppercase;
+  }
+  &__back {
+    position: relative;
+    display: inline-block;
+    margin-top: 100px;
+    padding-left: 100px;
+    color: #fff;
+    font-size: 30px;
+    line-height: 45px;
+    transition: color 0.25s ease;
+    &:hover,
+    &:focus-visible {
+      color: var(--accent);
+    }
+  }
+  &__arrow {
+    position: absolute;
+    left: 1px;
+    top: 14px;
+    width: 68px;
+    height: 18px;
+  }
+
+  @media (max-width: 991px) {
+    &__box {
+      padding-left: 0;
+    }
+  }
+
+  @media (max-width: 767px) {
+    & {
+      min-height: 548px;
+    }
+    &--404 {
+      padding: 125px 0 70px;
+    }
+    &--dev {
+      padding: 128px 0 70px;
+    }
+    &__code {
+      font-size: 132px;
+      line-height: 149px;
+    }
+    &__title {
+      margin-top: 50px;
+      font-size: 32px;
+      line-height: 42px;
+      & .accent {
+        display: block;
+      }
+    }
+    &__headline {
+      font-size: 32px;
+      line-height: 39px;
+      letter-spacing: -0.64px;
+    }
+    &__back {
+      margin-top: 46px;
+      padding-left: 58px;
+      font-size: 16px;
+      line-height: 24px;
+    }
+    &--dev &__back {
+      margin-top: 28px;
+    }
+    &__arrow {
+      left: 0;
+      top: 5px;
+      width: 50px;
+      height: 13px;
+    }
+  }
+}

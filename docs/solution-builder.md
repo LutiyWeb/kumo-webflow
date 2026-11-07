@@ -510,10 +510,10 @@ if (root) createRoot(root).render(<SolutionBuilder />);
 
 ## 7. Стили — `solution-builder.css`
 
-**Зачем:** вид как на макете (тёмный фон, Roboto Mono в заголовках, акцент `#fd0037`). Все классы с префиксом `sb-`, чтобы не конфликтовать с классами Webflow. Шрифты на сайте уже подключены Webflow, в песочнице будут системные.
+**Зачем:** вид как на макете (тёмный фон, Roboto Mono в заголовках, акцент `#1995fc`). Все классы с префиксом `sb-`, чтобы не конфликтовать с классами Webflow. Шрифты на сайте уже подключены Webflow, в песочнице будут системные.
 
 ```css
-.sb { --accent: #fd0037; --line: rgba(220,224,224,.2); --muted: #c4c4c4;
+.sb { --accent: #1995fc; --line: rgba(220,224,224,.2); --muted: #c4c4c4;
       max-width: 1170px; margin: 0 auto; padding: 40px; border: 1px solid var(--line);
       color: #fff; font-family: "Open Sans", sans-serif; }
 .sb__title { font: 700 32px/1.2 "Roboto Mono", monospace; margin: 0 0 24px; }
@@ -531,7 +531,7 @@ if (root) createRoot(root).render(<SolutionBuilder />);
              background: transparent; color: #fff; border: 1px solid var(--line); cursor: pointer;
              transition: border-color .2s, background-color .2s; }
 .sb-option:hover { border-color: var(--muted); }
-.sb-option.is-selected { border-color: var(--accent); background: rgba(253,0,55,.06); }
+.sb-option.is-selected { border-color: var(--accent); background: rgba(25,149,252,.06); }
 .sb-option__dot { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--muted); }
 .is-selected .sb-option__dot { border-color: var(--accent); background: radial-gradient(var(--accent) 40%, transparent 45%); }
 .sb-option__title { font: 700 15px "Roboto Mono", monospace; }

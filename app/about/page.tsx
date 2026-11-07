@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 const arrow = (
@@ -64,30 +65,36 @@ const work = [
   },
 ];
 
-const links: { title: string; text: string }[] = [
+const links: { title: string; text: string; href: string }[] = [
   {
     title: "Our Team",
     text: "Meet the company's managers who oversee our commitments to our clients.",
+    href: "/team",
   },
   {
     title: "KUMO Group",
     text: "The Digital Future is where human progress is transformed by technology.",
+    href: "/in-development",
   },
   {
     title: "Social Impact",
     text: "We advance sustainability, cultivate inclusion and transform lives with technology.",
+    href: "/in-development",
   },
   {
     title: "Newsroom",
     text: "See KUMO TECH latest news.",
+    href: "/in-development",
   },
   {
     title: "Careers",
     text: "Here at KUMO Tech, there are endless challenges and rewards",
+    href: "/careers",
   },
   {
     title: "Contact us",
     text: "We are always in touch and ready to provide you with advice, assistance and support.",
+    href: "/contact",
   },
 ];
 
@@ -189,11 +196,11 @@ export default function AboutPage() {
           </h2>
           <div className="about-links">
             {links.map((item) => (
-              <article key={item.title} className="about-link" tabIndex={0}>
+              <Link key={item.title} href={item.href} className="about-link">
                 <h3>{item.title}</h3>
                 <p>{item.text}</p>
                 <span className="about-link__arrow">{arrow}</span>
-              </article>
+              </Link>
             ))}
           </div>
         </div>

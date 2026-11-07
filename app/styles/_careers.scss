@@ -1,0 +1,269 @@
+.careers {
+  background: var(--bg-dark);
+  padding: 150px 0;
+  &__crumb {
+    margin: 0;
+    color: #aaa;
+    font-size: 14px;
+    line-height: 21px;
+    white-space: pre-wrap;
+    & a:hover {
+      color: #fff;
+    }
+  }
+  &__eyebrow {
+    margin: 80px 0 0;
+    color: var(--line);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 16px;
+  }
+  &__title {
+    position: relative;
+    max-width: 970px;
+    margin: 20px 0 0;
+    font-family: var(--font-heading), "Roboto Mono", sans-serif;
+    font-size: 51px;
+    font-weight: 700;
+    line-height: 64px;
+    text-indent: 112px;
+  }
+  &__title-arrow {
+    position: absolute;
+    left: 0;
+    top: 28px;
+    width: 82px;
+    height: 24px;
+  }
+  &__hero-media {
+    position: relative;
+    margin-top: 100px;
+    height: 550px;
+    & img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+  &__glow {
+    position: absolute;
+    left: 105px;
+    top: -105px;
+    width: 210px;
+    height: 210px;
+    border-radius: 50%;
+    background: var(--accent);
+    filter: blur(85px);
+    opacity: 0.65;
+    pointer-events: none;
+  }
+  &__statement {
+    max-width: 970px;
+    margin: 88px 0 0;
+    font-family: var(--font-heading), "Roboto Mono", sans-serif;
+    font-size: 51px;
+    font-weight: 700;
+    line-height: 64px;
+  }
+  &__quote {
+    position: relative;
+    max-width: 470px;
+    margin: 200px 0 0 auto;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 27px;
+    text-indent: 100px;
+  }
+  &__quote-arrow {
+    position: absolute;
+    left: 0;
+    top: 7px;
+    width: 70px;
+    height: 24px;
+  }
+  &__accordion {
+    margin-top: 50px;
+    border-top: 1px solid rgba(220, 224, 224, 0.5);
+  }
+  &__dept {
+    border-bottom: 1px solid rgba(220, 224, 224, 0.5);
+  }
+  &__dept-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 148px;
+    padding: 24px 14px 24px 0;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    text-align: left;
+    cursor: pointer;
+  }
+  &__dept-name {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30px;
+    transition: color 0.2s ease;
+  }
+  &__dept.is-open &__dept-name,
+  &__dept-head:hover &__dept-name {
+    color: var(--accent);
+  }
+  &__dept-icon {
+    position: relative;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 40px;
+      height: 2px;
+      background: var(--line);
+      transform: translateY(-50%);
+      transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+    }
+    &::after {
+      transform: translateY(-50%) rotate(90deg);
+    }
+  }
+  &__dept.is-open &__dept-icon::after {
+    opacity: 0;
+  }
+  &__dept-body {
+    padding: 0 0 60px 200px;
+  }
+  &__roles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 270px));
+    column-gap: 30px;
+    row-gap: 60px;
+  }
+  &__role {
+    display: block;
+    &:hover .careers__role-title {
+      color: var(--accent);
+    }
+  }
+  &__role-title {
+    margin: 0;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    transition: color 0.2s ease;
+  }
+  &__role-text {
+    margin: 20px 0 0;
+    color: var(--line);
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  @media (max-width: 991px) {
+    &__dept-body {
+      padding-left: 0;
+    }
+    &__roles {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 767px) {
+    & {
+      padding: 110px 0 50px;
+    }
+    &__crumb {
+      font-size: 12px;
+      line-height: 18px;
+    }
+    &__eyebrow {
+      margin-top: 30px;
+      font-size: 14px;
+      line-height: 14px;
+    }
+    &__title {
+      margin-top: 48px;
+      font-size: 24px;
+      line-height: 30px;
+      text-indent: 68px;
+    }
+    &__title-arrow {
+      top: 9px;
+      width: 50px;
+      height: 14px;
+    }
+    &__hero-media {
+      margin: 30px -18px 0;
+      height: 176px;
+    }
+    &__glow {
+      left: 80px;
+      top: 80px;
+      width: 80px;
+      height: 80px;
+      filter: blur(45px);
+    }
+    &__statement {
+      margin-top: 30px;
+      font-size: 24px;
+      line-height: 30px;
+    }
+    &__quote {
+      margin-top: 100px;
+      font-size: 16px;
+      line-height: 24px;
+      text-indent: 68px;
+    }
+    &__quote-arrow {
+      top: 4px;
+      width: 49px;
+      height: 18px;
+    }
+    &__accordion {
+      margin-top: 30px;
+    }
+    &__dept-head {
+      min-height: 58px;
+      padding: 16px 0;
+    }
+    &__dept-name {
+      font-size: 18px;
+      line-height: 24px;
+    }
+    &__dept-icon {
+      width: 20px;
+      height: 20px;
+      &::before,
+      &::after {
+        width: 20px;
+      }
+    }
+    &__dept-body {
+      padding: 10px 0 30px 29px;
+    }
+    &__roles {
+      grid-template-columns: 1fr;
+      row-gap: 30px;
+    }
+    &__role-title {
+      font-size: 16px;
+      line-height: 20px;
+    }
+    &__role-text {
+      margin-top: 10px;
+      font-size: 14px;
+      line-height: 21px;
+    }
+  }
+}

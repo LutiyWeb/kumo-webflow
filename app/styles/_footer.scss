@@ -1,6 +1,10 @@
 .footer {
   background: var(--bg-dark);
-  padding: 46px 0 26px;
+  padding: 0 0 26px;
+  & > .container {
+    padding-top: 46px;
+    border-top: 1px solid rgba(220, 224, 224, 0.5);
+  }
   &__top {
     display: grid;
     grid-template-columns: minmax(0, 400fr) repeat(3, minmax(0, 200fr)) minmax(
@@ -51,10 +55,11 @@
     color: var(--accent);
   }
   &__copy {
-    margin: 43px 0 0;
+    margin: 46px 0 0;
     color: var(--text-light);
     font-size: 12px;
-    line-height: 18px;
+    line-height: 12px;
+    white-space: pre-wrap;
   }
   @media (max-width: 991px) {
     &__top {
@@ -66,6 +71,13 @@
     }
   }
   @media (max-width: 767px) {
+    & {
+      padding: 23px 0 30px;
+    }
+    & > .container {
+      padding-top: 0;
+      border-top: 0;
+    }
     &__top {
       display: flex;
       flex-direction: column;
@@ -77,25 +89,39 @@
     }
     &__col {
       width: 100%;
-      border-bottom: 1px solid rgba(220, 224, 224, 0.2);
+      border-bottom: 1px solid rgba(220, 224, 224, 0.25);
+      &:first-of-type {
+        border-top: 1px solid rgba(220, 224, 224, 0.25);
+      }
     }
     &__title {
+      position: relative;
       display: flex;
+      align-items: center;
       justify-content: space-between;
       width: 100%;
-      padding: 14px 0;
+      margin: 0;
+      padding: 10px 10px 10px 0;
       font-size: 12px;
+      line-height: 16px;
     }
+    &__title::before,
     &__title::after {
       content: "";
-      width: 8px;
-      height: 8px;
-      border-right: 1.5px solid var(--line);
-      border-bottom: 1.5px solid var(--line);
-      transform: rotate(45deg);
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      width: 10px;
+      height: 1.5px;
+      background: var(--line);
+      transform: translateY(-50%);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    &__title::after {
+      transform: translateY(-50%) rotate(90deg);
     }
     &__col.is-open &__title::after {
-      transform: rotate(-135deg);
+      opacity: 0;
     }
     &__list {
       display: none;
@@ -105,7 +131,8 @@
       display: flex;
     }
     &__copy {
-      margin-top: 60px;
+      margin-top: 34px;
+      line-height: 18px;
     }
   }
 }

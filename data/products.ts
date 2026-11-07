@@ -10,12 +10,14 @@ export const productCards = [
     text: "We consolidate creative personalities and the top to bottom information on a wide innovation range with the yearning to give answers for complex endeavor level difficulties.",
     image:
       "https://cdn.prod.website-files.com/6ac3b84ed4c53273782414fe/6ac8b6d0f868ab0f34113ab2_hover-application.jpg",
+    href: "/services/application-services",
   },
   {
     title: "IT Consulting",
     text: "Use the Best Expertise to Strengthen your Software",
     image:
       "https://cdn.prod.website-files.com/6ac3b84ed4c53273782414fe/6ac8b6d02d8193c7c7629736_hover-consulting.jpg",
+    href: "/services/it-consulting",
   },
   {
     title: "Managed IT Services",

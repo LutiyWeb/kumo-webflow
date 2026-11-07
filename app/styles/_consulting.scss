@@ -1,0 +1,241 @@
+.consulting {
+  background: var(--bg-dark);
+  padding: 150px 0;
+  &__crumb {
+    margin: 0;
+    color: #aaa;
+    font-size: 14px;
+    line-height: 21px;
+    white-space: pre-wrap;
+    & a:hover {
+      color: #fff;
+    }
+  }
+  &__title {
+    margin: 19px 0 0;
+    color: var(--accent);
+    font-family: var(--font-heading), "Roboto Mono", sans-serif;
+    font-size: 72px;
+    font-weight: 700;
+    line-height: 95px;
+    letter-spacing: -1.44px;
+    text-transform: uppercase;
+  }
+  &__rule {
+    margin: 70px 0 0;
+    border: 0;
+    border-top: 1px solid rgba(220, 224, 224, 0.5);
+  }
+  &__hero {
+    display: grid;
+    grid-template-columns: 370px minmax(0, 470px);
+    column-gap: 130px;
+    align-items: start;
+    margin-top: 100px;
+  }
+  &__media {
+    position: relative;
+    width: 370px;
+    height: 400px;
+  }
+  &__glow {
+    position: absolute;
+    left: 105px;
+    top: -105px;
+    width: 210px;
+    height: 210px;
+    border-radius: 50%;
+    background: var(--accent);
+    filter: blur(85px);
+    opacity: 0.65;
+    pointer-events: none;
+  }
+  &__photo {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(22, 17, 13, 0.25);
+      pointer-events: none;
+    }
+  }
+  &__heading {
+    margin: 50px 0 0;
+    font-family: var(--font-heading), "Roboto Mono", sans-serif;
+    font-size: 58px;
+    font-weight: 700;
+    line-height: 73px;
+  }
+  &__services {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 770px);
+    justify-content: space-between;
+    margin-top: 200px;
+  }
+  &__kicker {
+    margin: 0;
+    color: var(--line);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 16px;
+  }
+  &__accordion {
+    border-top: 1px solid rgba(220, 224, 224, 0.5);
+  }
+  &__item {
+    border-bottom: 1px solid rgba(220, 224, 224, 0.5);
+  }
+  &__trigger {
+    display: grid;
+    grid-template-columns: 100px minmax(0, 1fr) 20px;
+    align-items: center;
+    width: 100%;
+    min-height: 90px;
+    padding: 24px 25px 24px 0;
+    border: 0;
+    background: none;
+    color: #fff;
+    text-align: left;
+    cursor: pointer;
+  }
+  &__num {
+    color: var(--accent);
+    font-family: var(--font-heading), "Roboto Mono", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 16px;
+  }
+  &__item-title {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30px;
+    transition: color 0.25s ease;
+  }
+  &__item--open &__item-title,
+  &__trigger:hover &__item-title {
+    color: var(--accent);
+  }
+  &__icon {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      background: #fff;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    &::before {
+      left: 0;
+      top: 9px;
+      width: 20px;
+      height: 2px;
+    }
+    &::after {
+      left: 9px;
+      top: 0;
+      width: 2px;
+      height: 20px;
+    }
+  }
+  &__item--open &__icon::after {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  &__body {
+    max-width: 670px;
+    margin: 0;
+    padding: 0 0 60px 100px;
+    color: var(--line);
+    font-size: 18px;
+    line-height: 27px;
+  }
+
+  @media (max-width: 991px) {
+    &__hero,
+    &__services {
+      grid-template-columns: 1fr;
+      row-gap: 40px;
+    }
+    &__heading {
+      margin-top: 0;
+    }
+  }
+
+  @media (max-width: 767px) {
+    & {
+      padding: 110px 0 50px;
+    }
+    &__crumb {
+      font-size: 12px;
+      line-height: 18px;
+    }
+    &__title {
+      margin-top: 30px;
+      font-size: 32px;
+      line-height: 44px;
+      letter-spacing: -0.64px;
+    }
+    &__rule {
+      margin-top: 30px;
+    }
+    &__hero {
+      margin-top: 50px;
+      row-gap: 30px;
+    }
+    &__heading {
+      order: 1;
+      font-size: 32px;
+      line-height: 40px;
+    }
+    &__media {
+      order: 2;
+      width: 100%;
+      height: 184px;
+    }
+    &__glow {
+      left: 80px;
+      top: 80px;
+      width: 80px;
+      height: 80px;
+      filter: blur(45px);
+    }
+    &__services {
+      margin-top: 50px;
+      row-gap: 30px;
+    }
+    &__kicker {
+      font-size: 14px;
+      line-height: 14px;
+    }
+    &__trigger {
+      grid-template-columns: 58px minmax(0, 1fr) 20px;
+      min-height: 58px;
+      padding: 18px 0;
+    }
+    &__num {
+      font-size: 12px;
+    }
+    &__item-title {
+      font-size: 14px;
+      line-height: 18px;
+    }
+    &__body {
+      padding: 0 28px 24px 58px;
+      font-size: 14px;
+      line-height: 21px;
+    }
+  }
+}

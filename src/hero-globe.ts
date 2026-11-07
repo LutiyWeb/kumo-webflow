@@ -60,7 +60,7 @@ export function mountHeroGlobe(container: HTMLElement) {
     depthWrite: false,
     blending: THREE.AdditiveBlending,
     uniforms: {
-      uColor: { value: new THREE.Color(0xfd0037) },
+      uColor: { value: new THREE.Color(0x1995fc) },
       uSize: { value: 5.0 }, // базовый размер точки в пикселях
       uPixelRatio: { value: renderer.getPixelRatio() },
       uTime: { value: 0 },
@@ -181,7 +181,7 @@ export function mountHeroGlobe(container: HTMLElement) {
     blending: THREE.AdditiveBlending,
     uniforms: {
       uFade: { value: 1 },
-      uColor: { value: new THREE.Color(0xfd0037) },
+      uColor: { value: new THREE.Color(0x1995fc) },
       uSize: { value: 2.8 },
       uPixelRatio: { value: renderer.getPixelRatio() },
     },
@@ -274,7 +274,7 @@ export function mountHeroGlobe(container: HTMLElement) {
     blending: THREE.AdditiveBlending,
     uniforms: {
       uFade: { value: 1 }, // 1 — видна, 0 — погашена (управляет морф)
-      uColor: { value: new THREE.Color(0xfd0037) },
+      uColor: { value: new THREE.Color(0x1995fc) },
       uSize: { value: 34.0 }, // размер пятна в пикселях
       uOpacity: { value: 0.08 }, // прозрачность одного пятна — главная ручка яркости дымки
       uPixelRatio: { value: renderer.getPixelRatio() },
@@ -330,9 +330,9 @@ export function mountHeroGlobe(container: HTMLElement) {
   const rim = makeGlow((ctx, s) => {
     const c = s / 2;
     const ring = ctx.createRadialGradient(c, c, 0, c, c, c);
-    ring.addColorStop(0.818, "rgba(253,0,55,0)");
-    ring.addColorStop(0.83, "rgba(253,0,55,0.5)");
-    ring.addColorStop(0.842, "rgba(253,0,55,0)");
+    ring.addColorStop(0.818, "rgba(25,149,252,0)");
+    ring.addColorStop(0.83, "rgba(25,149,252,0.5)");
+    ring.addColorStop(0.842, "rgba(25,149,252,0)");
     ctx.fillStyle = ring;
     ctx.fillRect(0, 0, s, s);
     // маска «освещения»: destination-in оставляет кольцо только там, где маска непрозрачна
@@ -356,10 +356,10 @@ export function mountHeroGlobe(container: HTMLElement) {
     makeGlow((ctx, s) => {
       const c = s / 2;
       const g = ctx.createRadialGradient(c, c, 0, c, c, c);
-      g.addColorStop(0, "rgba(253,0,55,0.8)");
-      g.addColorStop(0.12, "rgba(253,0,55,0.35)");
-      g.addColorStop(0.5, "rgba(253,0,55,0.06)");
-      g.addColorStop(1, "rgba(253,0,55,0)");
+      g.addColorStop(0, "rgba(25,149,252,0.8)");
+      g.addColorStop(0.12, "rgba(25,149,252,0.35)");
+      g.addColorStop(0.5, "rgba(25,149,252,0.06)");
+      g.addColorStop(1, "rgba(25,149,252,0)");
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, s, s);
     });
@@ -407,7 +407,7 @@ export function mountHeroGlobe(container: HTMLElement) {
     return sprite;
   };
 
-  const AMBER = "#fd0037";
+  const AMBER = "#1995fc";
   const rand = (min: number, max: number) => min + Math.random() * (max - min);
 
   // а) «+» — регулярными «рамками» 3 × 3 на нескольких глубинах

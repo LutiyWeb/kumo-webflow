@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { footerColumns, footerCopy, logoUrl } from "@/data/home";
 
@@ -10,9 +11,9 @@ export function Footer() {
     <footer className="footer">
       <div className="container">
         <div className="footer__top">
-          <a href="#top" className="footer__logo" aria-label="Kumo">
+          <Link href="/" className="footer__logo" aria-label="Kumo">
             <img src={logoUrl} alt="Kumo Technology" />
-          </a>
+          </Link>
           {footerColumns.map((column) => {
             const isOpen = open === column.title;
             return (
@@ -34,10 +35,10 @@ export function Footer() {
                 </button>
                 <ul className="footer__list">
                   {column.links.map((link) => (
-                    <li key={link}>
-                      <a href="#top" className="footer__link">
-                        {link}
-                      </a>
+                    <li key={link.label}>
+                      <Link href={link.href} className="footer__link">
+                        {link.label}
+                      </Link>
                     </li>
                   ))}
                 </ul>

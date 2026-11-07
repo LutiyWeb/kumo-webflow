@@ -1,0 +1,241 @@
+.vacancy {
+  background: var(--bg-dark);
+  padding: 150px 0;
+  &__crumb {
+    margin: 0;
+    color: #aaa;
+    font-size: 14px;
+    line-height: 21px;
+    white-space: pre-wrap;
+    & a:hover {
+      color: #fff;
+    }
+  }
+  &__title {
+    max-width: 670px;
+    margin: 30px 0 0;
+    color: var(--accent);
+    font-family: var(--font-heading), "Roboto Mono", sans-serif;
+    font-size: 46px;
+    font-weight: 700;
+    line-height: 58px;
+  }
+  &__intro {
+    max-width: 670px;
+    margin: 50px 0 0;
+    color: var(--line);
+    font-size: 16px;
+    line-height: 28px;
+  }
+  &__sections {
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+    max-width: 670px;
+    margin-top: 50px;
+  }
+  &__section-title {
+    margin: 0 0 30px;
+    font-family: var(--font-heading), "Roboto Mono", sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 47px;
+  }
+  &__list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  &__item {
+    position: relative;
+    padding-left: 100px;
+    color: var(--line);
+    font-size: 16px;
+    line-height: 32px;
+  }
+  &__dot {
+    position: absolute;
+    left: 60px;
+    top: 14px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  &__respond {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 235px;
+    height: 50px;
+    margin: 50px 0 0 100px;
+    border: 2px solid #fff;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition:
+      border-color 0.25s ease,
+      color 0.25s ease;
+    &:hover,
+    &:focus-visible {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+  }
+
+  @media (max-width: 767px) {
+    & {
+      padding: 110px 0 50px;
+    }
+    &__crumb {
+      font-size: 12px;
+      line-height: 18px;
+    }
+    &__crumb-respond {
+      display: none;
+    }
+    &__title {
+      font-size: 24px;
+      line-height: 32px;
+    }
+    &__intro {
+      margin-top: 50px;
+      font-size: 14px;
+      line-height: 21px;
+    }
+    &__sections {
+      margin-top: 50px;
+      row-gap: 50px;
+    }
+    &__section-title {
+      font-size: 20px;
+      line-height: 26px;
+    }
+    &__list {
+      row-gap: 20px;
+    }
+    &__item {
+      padding-left: 51px;
+      font-size: 14px;
+      line-height: 21px;
+    }
+    &__dot {
+      left: 29px;
+      top: 6px;
+    }
+    &__respond {
+      display: flex;
+      margin: 50px auto 0;
+    }
+  }
+}
+
+.respond-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 570px;
+  margin-top: 105px;
+  &__field {
+    position: relative;
+    display: block;
+    margin-bottom: 30px;
+    & input,
+    & textarea {
+      width: 100%;
+      height: 56px;
+      padding: 0 20px;
+      border: 1px solid rgba(220, 224, 224, 0.5);
+      background: transparent;
+      color: #fff;
+      font: inherit;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.25s ease;
+      &::placeholder {
+        color: var(--text-light);
+      }
+      &:focus {
+        border-color: #fff;
+      }
+    }
+    &--active input {
+      border-color: #fff;
+    }
+    &--area textarea {
+      height: 227px;
+      padding: 20px;
+      resize: vertical;
+    }
+  }
+  &__floating {
+    position: absolute;
+    left: 14px;
+    top: -6px;
+    padding: 0 6px;
+    background: var(--bg-dark);
+    color: var(--line);
+    font-size: 12px;
+    line-height: 12px;
+  }
+  &__attach {
+    margin: -20px 0 30px;
+    color: var(--line);
+    font-size: 12px;
+    line-height: 18px;
+  }
+  &__attach-link {
+    color: var(--accent);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  &__consent {
+    margin: 0 0 30px;
+    color: var(--line);
+    font-size: 12px;
+    line-height: 18px;
+    & a {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+  }
+  &__submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 235px;
+    height: 50px;
+    border: 2px solid #fff;
+    background: transparent;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition:
+      border-color 0.25s ease,
+      color 0.25s ease;
+    &:hover,
+    &:focus-visible {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+  }
+
+  @media (max-width: 767px) {
+    & {
+      margin-top: 56px;
+    }
+    &__field--area textarea {
+      height: 162px;
+    }
+    &__submit {
+      margin: 0 auto;
+    }
+  }
+}

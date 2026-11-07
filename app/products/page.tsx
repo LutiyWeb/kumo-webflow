@@ -5,6 +5,7 @@ const cards = [
     title: "Servers",
     text: "KUMO servers designed to ease digital transformation of business operations",
     image: "/products/servers-hover.png",
+    href: "/products/servers",
   },
   {
     title: "Integrated systems",
