@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { PageMotion } from "@/components/motion/PageMotion";
 
 const developerRoles = [
   {
@@ -45,17 +46,18 @@ export default function CareersPage() {
 
   return (
     <main className="careers" id="top">
+      <PageMotion />
       <div className="container">
-        <p className="careers__crumb">
+        <p className="careers__crumb" data-reveal="up">
           <Link href="/">Home</Link>
           {"  >  "}
           <Link href="/about">About Us</Link>
           {"  >  Careers"}
         </p>
 
-        <p className="careers__eyebrow">Careers</p>
+        <p className="careers__eyebrow" data-reveal="up" data-reveal-delay="0.1">Careers</p>
 
-        <h1 className="careers__title">
+        <h1 className="careers__title" data-reveal="split" data-reveal-delay="0.2">
           <img
             className="careers__title-arrow"
             src="/team/arrow-white.svg"
@@ -65,24 +67,24 @@ export default function CareersPage() {
           <span className="accent">challenges and rewards</span>
         </h1>
 
-        <div className="careers__hero-media">
-          <span className="careers__glow" aria-hidden="true" />
+        <div className="careers__hero-media" data-reveal="up" data-reveal-delay="0.4">
+          <span className="careers__glow" data-reveal="fade" data-reveal-delay="0.4" aria-hidden="true" />
           <img
             src="https://cdn.prod.website-files.com/6ac3b84ed4c53273782414fe/6ac3e6e8cde6b5609994d6ac_solutions-team.jpg"
             alt="KUMO Tech team collaborating"
           />
         </div>
 
-        <h2 className="careers__statement">
+        <h2 className="careers__statement" data-reveal="split">
           Opportunities across the globe. A team fueled by collaboration. A
           culture that{" "}
           <span className="accent">fosters innovation and values</span> a
           diverse and inclusive workplace.
         </h2>
 
-        <p className="careers__quote">
+        <p className="careers__quote" data-reveal="up">
           <img
-            className="careers__quote-arrow"
+            className="careers__quote-arrow" data-reveal="left" data-reveal-delay="0.3"
             src="/team/arrow-gold.svg"
             alt=""
           />
@@ -90,7 +92,7 @@ export default function CareersPage() {
           work and driving success for our customers.
         </p>
 
-        <div className="careers__accordion">
+        <div className="careers__accordion" data-reveal="stagger">
           {departments.map((dept) => {
             const isOpen = openId === dept.id;
             return (

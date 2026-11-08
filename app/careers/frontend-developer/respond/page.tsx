@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
+import { PageMotion } from "@/components/motion/PageMotion";
 
 export default function RespondPage() {
   const [sent, setSent] = useState(false);
@@ -13,8 +14,9 @@ export default function RespondPage() {
 
   return (
     <main className="vacancy vacancy--respond" id="top">
+      <PageMotion />
       <div className="container">
-        <p className="vacancy__crumb">
+        <p className="vacancy__crumb" data-reveal="up">
           <Link href="/">Home</Link>
           {"  >  "}
           <Link href="/about">About Us</Link>
@@ -24,9 +26,9 @@ export default function RespondPage() {
           <Link href="/careers/frontend-developer">Frontend Developer</Link>
           <span className="vacancy__crumb-respond">{"  >  Respond"}</span>
         </p>
-        <h1 className="vacancy__title">Frontend developer</h1>
+        <h1 className="vacancy__title" data-reveal="split" data-reveal-delay="0.1">Frontend developer</h1>
 
-        <form className="respond-form" onSubmit={handleSubmit}>
+        <form className="respond-form" data-reveal="stagger" data-reveal-delay="0.3" onSubmit={handleSubmit}>
           <label className="respond-form__field respond-form__field--active">
             <span className="respond-form__floating">First Name</span>
             <input type="text" name="firstName" defaultValue="" required />

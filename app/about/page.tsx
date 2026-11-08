@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { PageMotion } from "@/components/motion/PageMotion";
 
 const arrow = (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -147,21 +148,22 @@ function WorkRow({
 export default function AboutPage() {
   return (
     <main id="top">
+      <PageMotion />
       <section className="about-hero">
-        <img className="about-hero__photo" src="/about/hero.png" alt="" />
-        <p className="listing-mark">About us</p>
+        <img className="about-hero__photo" data-reveal="zoom" data-parallax="5" src="/about/hero.png" alt="" />
+        <p className="listing-mark" data-reveal="fade" data-reveal-delay="0.4">About us</p>
         <div className="container">
-          <h1>About US</h1>
+          <h1 data-reveal="split" data-reveal-delay="0.15">About US</h1>
         </div>
       </section>
       <section className="about-body">
         <div className="container">
-          <h2 className="about-strategy">
+          <h2 className="about-strategy" data-reveal="split">
             Listening, learning,
             <br />
             <span className="accent">creating is our strategy</span>
           </h2>
-          <div className="about-split">
+          <div className="about-split" data-reveal="stagger" data-reveal-delay="0.2">
             <p className="about-lead">
               KUMO TECH helps to create new opportunities for innovation and
               growth in enterprises and government projects as well as to
@@ -183,18 +185,18 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
-          <h2 className="about-do">
+          <h2 className="about-do" data-reveal="split">
             What <span className="accent">we do</span>
           </h2>
-          <div className="about-rows">
+          <div className="about-rows" data-reveal="stagger">
             {work.map((item) => (
               <WorkRow key={item.num} {...item} />
             ))}
           </div>
-          <h2 className="about-more">
+          <h2 className="about-more" data-reveal="split">
             Want to know <span className="accent">more</span>?
           </h2>
-          <div className="about-links">
+          <div className="about-links" data-reveal="stagger">
             {links.map((item) => (
               <Link key={item.title} href={item.href} className="about-link">
                 <h3>{item.title}</h3>

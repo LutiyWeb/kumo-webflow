@@ -5,12 +5,12 @@ export function ProductsServices() {
   return (
     <section className="products-services">
       <div className="container">
-        <h2 className="products-services__title">
+        <h2 className="products-services__title" data-reveal="split">
           {productsCopy.headlineLead}{" "}
           <span className="accent">{productsCopy.headlineAccent}</span>{" "}
           {productsCopy.headlineRest}
         </h2>
-        <div className="products-services__cols">
+        <div className="products-services__cols" data-reveal="stagger" data-reveal-delay="0.2">
           <p className="products-services__lead">{productsCopy.lead}</p>
           <div className="products-services__copy">
             {productsCopy.paragraphs.map((paragraph) => (
@@ -18,7 +18,7 @@ export function ProductsServices() {
             ))}
           </div>
         </div>
-        <div className="products-services__grid">
+        <div className="products-services__grid" data-reveal="stagger">
           {productCards.map((card) => (
             <Link
               key={card.title}

@@ -78,8 +78,8 @@ export function Streams() {
     <section className="section section--light" id="streams">
       <div className="container">
         <div className="streams__head">
-          <h2 className="section-title streams__title">{streams.title}</h2>
-          <div className="streams__nav">
+          <h2 className="section-title streams__title" data-reveal="split">{streams.title}</h2>
+          <div className="streams__nav" data-reveal="up" data-reveal-delay="0.3">
             <button
               type="button"
               className="streams__arrow"
@@ -98,8 +98,8 @@ export function Streams() {
             </button>
           </div>
         </div>
-        <div className="streams__line" />
-        <div className="swiper streams__swiper" ref={rootRef}>
+        <div className="streams__line" data-reveal="line" />
+        <div className="swiper streams__swiper" ref={rootRef} data-reveal="up" data-reveal-delay="0.2">
           <div className="swiper-wrapper">
             {streams.slides.map((slide) => (
               <article
@@ -127,7 +127,7 @@ export function Streams() {
             ))}
           </div>
         </div>
-        <div className="streams__footer">
+        <div className="streams__footer" data-reveal="up">
           <div className="streams__progress">
             <span style={{ transform: `scaleX(${current / total})` }} />
           </div>

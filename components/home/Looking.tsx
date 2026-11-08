@@ -4,11 +4,11 @@ export function Looking() {
   return (
     <section className="section">
       <div className="container">
-        <h2 className="section-title looking__title">
+        <h2 className="section-title looking__title" data-reveal="split">
           {looking.title} <span className="accent">{looking.titleAccent}</span>
         </h2>
-        <p className="lead looking__lead">{looking.lead}</p>
-        <div className="looking__cards">
+        <p className="lead looking__lead" data-reveal="up" data-reveal-delay="0.2">{looking.lead}</p>
+        <div className="looking__cards" data-reveal="stagger">
           {looking.cards.map((card) => (
             <article
               key={card.title}
@@ -17,7 +17,7 @@ export function Looking() {
             >
               {card.badge ? <span className="card__badge">{card.badge}</span> : null}
               <h3 className="card__title">{card.title}</h3>
-              <p className="card__price">{card.price}</p>
+              <p className="card__price" data-count>{card.price}</p>
               <div className="card__details">
                 <div className="card__details-inner">
                   <p className="card__meta">{card.meta}</p>

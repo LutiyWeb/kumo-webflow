@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { PageMotion } from "@/components/motion/PageMotion";
 
 const points = [
   "We utilize advances technologies and approaches, while professionally applying and constantly developing our competencies in IoT, big data, machine learning, AI, image analysis, AR, DevOps/Continuous Delivery (CD).",
@@ -26,24 +27,25 @@ export default function ApplicationServicesPage() {
 
   return (
     <main className="app-services" id="top">
+      <PageMotion />
       <div className="container">
-        <p className="app-services__crumb">
+        <p className="app-services__crumb" data-reveal="up">
           <Link href="/">Home</Link>
           {"  >  "}
           <Link href="/services">Services</Link>
           {"  >  Application Services"}
         </p>
 
-        <h1 className="app-services__title">
+        <h1 className="app-services__title" data-reveal="split" data-reveal-delay="0.1">
           <span className="accent accent--block">Application</span>
           <span className="app-services__title-second">Services</span>
         </h1>
 
-        <hr className="app-services__rule" />
+        <hr className="app-services__rule" data-reveal="line" data-reveal-delay="0.3" />
 
-        <p className="app-services__lead">
+        <p className="app-services__lead" data-reveal="up" data-reveal-delay="0.4">
           <img
-            className="app-services__lead-arrow"
+            className="app-services__lead-arrow" data-reveal="left" data-reveal-delay="0.3"
             src="/team/arrow-gold.svg"
             alt=""
           />
@@ -52,15 +54,15 @@ export default function ApplicationServicesPage() {
         </p>
 
         <section className="app-services__concept">
-          <div className="app-services__media">
-            <span className="app-services__glow" aria-hidden="true" />
+          <div className="app-services__media" data-reveal="up">
+            <span className="app-services__glow" data-reveal="fade" data-reveal-delay="0.4" aria-hidden="true" />
             <img
               src="/products-hover/application.jpg"
               alt="Application services team"
             />
           </div>
 
-          <ul className="app-services__points">
+          <ul className="app-services__points" data-reveal="stagger">
             {points.map((point) => (
               <li key={point} className="app-services__point">
                 <svg
@@ -84,14 +86,14 @@ export default function ApplicationServicesPage() {
         </section>
 
         <section className="app-services__offer">
-          <h2 className="app-services__offer-title">
+          <h2 className="app-services__offer-title" data-reveal="split">
             Application <span className="accent">services</span>
             <br />
             we offer
           </h2>
 
           <div className="app-services__showcase">
-            <ul className="app-services__showcase-list">
+            <ul className="app-services__showcase-list" data-reveal="stagger">
               {offerings.map((item) => {
                 const isActive = item.id === activeId;
                 return (
@@ -113,7 +115,7 @@ export default function ApplicationServicesPage() {
               })}
             </ul>
 
-            <div className="app-services__showcase-card">
+            <div className="app-services__showcase-card" data-reveal="curtain" data-reveal-delay="0.2">
               <img src={activeItem.image} alt={activeItem.label} />
               <span className="app-services__showcase-overlay" />
             </div>

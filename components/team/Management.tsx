@@ -109,7 +109,7 @@ export function Management() {
   const [open, setOpen] = useState<string | null>(null);
 
   return (
-    <div className="team-people">
+    <div className="team-people" data-reveal="stagger">
       {people.map((person) => {
         const expanded = open === person.name;
         return (

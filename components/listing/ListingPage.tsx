@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { PageMotion } from "@/components/motion/PageMotion";
 
 export type ListingCard = {
   key?: string;
@@ -28,11 +29,12 @@ export function ListingPage({
 }) {
   return (
     <main id="top">
+      <PageMotion />
       <section className={hero ? "listing-hero" : "listing-hero listing-hero--plain"}>
-        {hero ? <img className="listing-hero__photo" src={hero} alt="" /> : null}
-        <p className="listing-mark">{mark}</p>
+        {hero ? <img className="listing-hero__photo" src={hero} alt="" data-reveal="zoom" data-parallax="5" /> : null}
+        <p className="listing-mark" data-reveal="fade" data-reveal-delay="0.6">{mark}</p>
         <div className="container listing-hero__copy">
-          <h1>
+          <h1 data-reveal="split" data-reveal-delay="0.15">
             <span>Kumo</span>
             <span>{pageTitle}</span>
           </h1>
@@ -40,12 +42,12 @@ export function ListingPage({
       </section>
       <section className="listing">
         <div className="container">
-          <h2 className="listing__title">{headline}</h2>
-          <div className="listing__split">
+          <h2 className="listing__title" data-reveal="split">{headline}</h2>
+          <div className="listing__split" data-reveal="stagger" data-reveal-delay="0.2">
             <p className="listing__lead">{lead}</p>
             <p className="listing__note">{note}</p>
           </div>
-          <div className="listing__grid">
+          <div className="listing__grid" data-reveal="stagger">
             {cards.map((card, index) => {
               const key =
                 card.key ?? (typeof card.title === "string" ? card.title : String(index));

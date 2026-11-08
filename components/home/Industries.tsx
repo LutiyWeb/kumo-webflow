@@ -1,6 +1,7 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import gsap from "gsap";
 import { industries } from "@/data/home";
 
 export function Industries() {
@@ -9,6 +10,25 @@ export function Industries() {
   const [active, setActive] = useState(2);
   const [shift, setShift] = useState(0);
   const item = industries.items[active];
+  const firstImage = useRef(true);
+
+  // Image swap: reveal the new picture from bottom to top
+  useEffect(() => {
+    if (firstImage.current) {
+      firstImage.current = false;
+      return;
+    }
+    const img = imageRef.current?.querySelector("img");
+    if (!img || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const tween = gsap.fromTo(
+      img,
+      { clipPath: "inset(100% 0% 0% 0%)", scale: 1.08 },
+      { clipPath: "inset(0% 0% 0% 0%)", scale: 1, duration: 0.9, ease: "expo.out", clearProps: "clipPath,transform" },
+    );
+    return () => {
+      tween.kill();
+    };
+  }, [active]);
 
   useLayoutEffect(() => {
     const menu = menuRef.current;
@@ -44,7 +64,7 @@ export function Industries() {
   return (
     <section className="section section--light">
       <div className="container">
-        <h2 className="section-title industries__title">
+        <h2 className="section-title industries__title" data-reveal="split">
           {industries.title[0]}
           <br />
           {industries.title[1]}
@@ -52,6 +72,7 @@ export function Industries() {
         <div className="industries">
           <div
             className="industries__menu"
+            data-reveal="stagger"
             ref={menuRef}
             style={{ transform: shift ? `translateY(${shift}px)` : undefined }}
           >
@@ -71,7 +92,7 @@ export function Industries() {
               </button>
             ))}
           </div>
-          <div className="industries__image" ref={imageRef}>
+          <div className="industries__image" ref={imageRef} data-reveal="curtain" data-reveal-delay="0.2">
             <img src={item.image} alt={item.alt} />
           </div>
         </div>

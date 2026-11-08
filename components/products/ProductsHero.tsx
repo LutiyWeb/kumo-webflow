@@ -19,9 +19,9 @@ export function ProductsHero() {
 
   return (
     <section className="products-hero">
-      <div className="products-hero__net" data-network ref={netRef} />
+      <div className="products-hero__net" data-network ref={netRef} data-reveal="fade" />
       <div className="container products-hero__copy">
-        <h1>
+        <h1 data-reveal="split" data-reveal-delay="0.15">
           <span>Kumo</span>
           <span>Services</span>
         </h1>

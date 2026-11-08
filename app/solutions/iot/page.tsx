@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { PageMotion } from "@/components/motion/PageMotion";
 
 const iotServices = [
   {
@@ -62,22 +63,23 @@ export default function IotSolutionPage() {
 
   return (
     <main className="iot-page" id="top">
+      <PageMotion />
       <div className="container">
-        <p className="iot-page__crumb">
+        <p className="iot-page__crumb" data-reveal="up">
           <Link href="/">Home</Link>
           {"  >  "}
           <Link href="/solutions">Solutions</Link>
           {"  >  Internet Of Things"}
         </p>
 
-        <h1 className="iot-page__title">
+        <h1 className="iot-page__title" data-reveal="split" data-reveal-delay="0.1">
           <span className="accent accent--block">Internet</span>
           <span className="iot-page__title-second">of Things</span>
         </h1>
 
-        <hr className="iot-page__rule" />
+        <hr className="iot-page__rule" data-reveal="line" data-reveal-delay="0.3" />
 
-        <section className="iot-page__intro">
+        <section className="iot-page__intro" data-reveal="stagger" data-reveal-delay="0.3">
           <p className="iot-page__lead">
             <img
               className="iot-page__lead-arrow"
@@ -103,13 +105,13 @@ export default function IotSolutionPage() {
         </section>
 
         <section className="iot-page__services">
-          <h2 className="iot-page__services-title">
+          <h2 className="iot-page__services-title" data-reveal="split">
             At KUMO we can offer you{" "}
             <span className="accent">the following services,</span> when comes
             to IoT:
           </h2>
 
-          <div className="iot-page__accordion">
+          <div className="iot-page__accordion" data-reveal="stagger">
             {iotServices.map((item) => {
               const isOpen = openNum === item.num;
               return (

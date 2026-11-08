@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PageMotion } from "@/components/motion/PageMotion";
 
 export const metadata: Metadata = {
   title: "5G Technology — Kumo",
@@ -19,21 +20,22 @@ const areas = [
 export default function FiveGSolutionPage() {
   return (
     <main className="fiveg-page" id="top">
+      <PageMotion />
       <div className="container">
-        <p className="fiveg-page__crumb">
+        <p className="fiveg-page__crumb" data-reveal="up">
           <Link href="/">Home</Link>
           {"  >  "}
           <Link href="/solutions">Solutions</Link>
           {"  >  5G"}
         </p>
 
-        <h1 className="fiveg-page__title">
+        <h1 className="fiveg-page__title" data-reveal="split" data-reveal-delay="0.1">
           <span className="accent">5G</span> technology
         </h1>
 
-        <hr className="fiveg-page__rule" />
+        <hr className="fiveg-page__rule" data-reveal="line" data-reveal-delay="0.3" />
 
-        <section className="fiveg-page__intro">
+        <section className="fiveg-page__intro" data-reveal="stagger" data-reveal-delay="0.3">
           <p className="fiveg-page__lead">
             <img
               className="fiveg-page__lead-arrow"
@@ -62,11 +64,11 @@ export default function FiveGSolutionPage() {
 
         <section className="fiveg-page__innovations">
           <div className="fiveg-page__innovations-top">
-            <h2 className="fiveg-page__innovations-title">
+            <h2 className="fiveg-page__innovations-title" data-reveal="split">
               Innovations <span className="accent">for new business</span>{" "}
               opportunities
             </h2>
-            <div className="fiveg-page__innovations-media">
+            <div className="fiveg-page__innovations-media" data-reveal="curtain" data-reveal-delay="0.2">
               <img
                 src="/solutions/smart-hover.png"
                 alt="5G business opportunities"
@@ -75,14 +77,14 @@ export default function FiveGSolutionPage() {
           </div>
 
           <div className="fiveg-page__areas">
-            <p className="fiveg-page__areas-tag">
+            <p className="fiveg-page__areas-tag" data-reveal="up">
               When the speed of light is not enough
             </p>
             <div className="fiveg-page__areas-right">
-              <p className="fiveg-page__areas-lead">
+              <p className="fiveg-page__areas-lead" data-reveal="up">
                 5G technology is widely used in the following areas:
               </p>
-              <ul className="fiveg-page__areas-list">
+              <ul className="fiveg-page__areas-list" data-reveal="stagger">
                 {areas.map((area) => (
                   <li key={area.num} className="fiveg-page__areas-item">
                     <span className="fiveg-page__areas-num">{area.num}</span>
@@ -95,13 +97,13 @@ export default function FiveGSolutionPage() {
         </section>
 
         <section className="fiveg-page__approach">
-          <h2 className="fiveg-page__approach-title">
+          <h2 className="fiveg-page__approach-title" data-reveal="split">
             KUMO <span className="accent">approach</span>
           </h2>
-          <hr className="fiveg-page__approach-rule" />
+          <hr className="fiveg-page__approach-rule" data-reveal="line" />
 
           <div className="fiveg-page__approach-grid">
-            <div className="fiveg-page__approach-left">
+            <div className="fiveg-page__approach-left" data-reveal="stagger">
               <p className="fiveg-page__approach-lead">
                 Our societies and cities are faced with the challenges of
                 improving security, energy efficiency, effectiveness of
@@ -117,13 +119,13 @@ export default function FiveGSolutionPage() {
             </div>
 
             <div className="fiveg-page__approach-right">
-              <div className="fiveg-page__approach-media">
+              <div className="fiveg-page__approach-media" data-reveal="curtain">
                 <img
                   src="/solutions/big-data-hover.png"
                   alt="Smart city 5G network"
                 />
               </div>
-              <hr className="fiveg-page__approach-subrule" />
+              <hr className="fiveg-page__approach-subrule" data-reveal="line" />
               <p className="fiveg-page__approach-text">
                 Current mobile networks will soon be insufficient to serve the
                 increasing number of users of bandwidth-intensive digital
@@ -136,13 +138,13 @@ export default function FiveGSolutionPage() {
           </div>
 
           <div className="fiveg-page__bottom">
-            <div className="fiveg-page__bottom-media">
+            <div className="fiveg-page__bottom-media" data-reveal="curtain">
               <img
                 src="/solutions/vision-hover.png"
                 alt="5G proof-of-concept prototypes"
               />
             </div>
-            <div className="fiveg-page__bottom-copy">
+            <div className="fiveg-page__bottom-copy" data-reveal="stagger" data-reveal-delay="0.2">
               <p className="fiveg-page__bottom-lead">
                 <svg
                   className="fiveg-page__bottom-icon"

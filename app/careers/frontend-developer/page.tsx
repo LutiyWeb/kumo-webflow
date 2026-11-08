@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PageMotion } from "@/components/motion/PageMotion";
 
 export const metadata: Metadata = {
   title: "Frontend Developer — Careers — Kumo",
@@ -44,8 +45,9 @@ const sections = [
 export default function FrontendDeveloperPage() {
   return (
     <main className="vacancy" id="top">
+      <PageMotion />
       <div className="container">
-        <p className="vacancy__crumb">
+        <p className="vacancy__crumb" data-reveal="up">
           <Link href="/">Home</Link>
           {"  >  "}
           <Link href="/about">About Us</Link>
@@ -53,9 +55,9 @@ export default function FrontendDeveloperPage() {
           <Link href="/careers">Careers</Link>
           {"  >  Frontend Developer"}
         </p>
-        <h1 className="vacancy__title">Frontend developer</h1>
+        <h1 className="vacancy__title" data-reveal="split" data-reveal-delay="0.1">Frontend developer</h1>
 
-        <p className="vacancy__intro">
+        <p className="vacancy__intro" data-reveal="up" data-reveal-delay="0.3">
           Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
           commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus
           et magnis dis parturient montes, nascetur ridiculus mus. Donec quam
@@ -64,7 +66,7 @@ export default function FrontendDeveloperPage() {
           nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a
         </p>
 
-        <div className="vacancy__sections">
+        <div className="vacancy__sections" data-reveal="stagger">
           {sections.map((section) => (
             <section key={section.title} className="vacancy__section">
               <h2 className="vacancy__section-title">{section.title}</h2>

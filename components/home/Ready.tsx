@@ -9,13 +9,15 @@ export function Ready() {
   return (
     <section className="section ready" id="contact">
       <div className="container">
-        <h2 className="section-title ready__title">
+        <h2 className="section-title ready__title" data-reveal="split">
           {ready.title}{" "}
           <span className="accent accent--block">{ready.titleAccent}</span>
         </h2>
-        <p className="lead ready__lead">
+        <p className="lead ready__lead" data-reveal="up" data-reveal-delay="0.2">
           <img
             className="ready__arrow"
+            data-reveal="left"
+            data-reveal-delay="0.4"
             src="/team/arrow-gold.svg"
             alt=""
             width={70}
@@ -30,7 +32,7 @@ export function Ready() {
             setSent(true);
           }}
         >
-          <div className="ready__fields">
+          <div className="ready__fields" data-reveal="stagger">
             <label className="ready__control">
               <input name="name" type="text" placeholder=" " required autoComplete="name" />
               <span>{ready.name}</span>
@@ -50,7 +52,7 @@ export function Ready() {
               <a href="#top">{ready.privacy}</a>
             </p>
           </div>
-          <div className="ready__aside">
+          <div className="ready__aside" data-reveal="stagger" data-reveal-delay="0.2">
             <label className="ready__control ready__control--area">
               <textarea name="message" placeholder=" " required />
               <span>{ready.message}</span>

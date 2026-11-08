@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Management } from "@/components/team/Management";
+import { PageMotion } from "@/components/motion/PageMotion";
 
 export const metadata: Metadata = {
   title: "Our Team — Kumo",
@@ -55,23 +56,24 @@ const projects = [
 export default function OurTeamPage() {
   return (
     <main className="team">
+      <PageMotion />
       <div className="container">
-        <p className="team-kicker">Our Team</p>
-        <p className="team-lead team-lead--marked">
-          <img className="team-lead__arrow" src="/team/arrow-white.svg" alt="" />
+        <p className="team-kicker" data-reveal="up">Our Team</p>
+        <p className="team-lead team-lead--marked" data-reveal="up" data-reveal-delay="0.15">
+          <img className="team-lead__arrow" data-reveal="left" data-reveal-delay="0.3" src="/team/arrow-white.svg" alt="" />
           The <span className="accent">KUMO Tech</span>{" "}
           <span className="accent">team</span> is able to provide the whole world
           with technologies that allow enterprises to{" "}
           <span className="team-em">work more efficiently</span>.
         </p>
-        <p className="team-lead">
+        <p className="team-lead" data-reveal="up" data-reveal-delay="0.3">
           Our team brings unique knowledge in the field, operational information,
           customer contacts and work experience. We use our collective networks
           and expertise to help our founders with an optimal strategy for market
           entry, products and recruitment.
         </p>
 
-        <div className="team-head">
+        <div className="team-head" data-reveal="stagger">
           <h2 className="team-title">
             Management <span>team</span>
           </h2>
@@ -84,10 +86,10 @@ export default function OurTeamPage() {
 
         <Management />
 
-        <h2 className="team-title team-title--projects">
+        <h2 className="team-title team-title--projects" data-reveal="split">
           Team <span>projects</span>
         </h2>
-        <div className="team-projects">
+        <div className="team-projects" data-reveal="stagger">
           {projects.map((project) => (
             <article key={project.name} className="team-project">
               <img
@@ -110,7 +112,7 @@ export default function OurTeamPage() {
             </article>
           ))}
         </div>
-        <button type="button" className="team-more">
+        <button type="button" className="team-more" data-reveal="up">
           Load More projects
         </button>
       </div>

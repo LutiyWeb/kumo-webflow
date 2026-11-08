@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { type FormEvent, useState } from "react";
+import { PageMotion } from "@/components/motion/PageMotion";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -13,24 +14,25 @@ export default function ContactPage() {
 
   return (
     <main className="contact-page" id="top">
+      <PageMotion />
       <section className="contact-hero">
         <div
           className="contact-hero__bg"
           style={{ backgroundImage: 'url("/about/hero.png")' }}
         />
         <div className="contact-hero__overlay" />
-        <div className="contact-hero__mark" aria-hidden="true">
+        <div className="contact-hero__mark" data-reveal="fade" data-reveal-delay="0.4" aria-hidden="true">
           <span className="contact-hero__mark-text">About us</span>
           <span className="contact-hero__mark-line" />
         </div>
         <div className="container contact-hero__inner">
-          <p className="contact-hero__crumb">
+          <p className="contact-hero__crumb" data-reveal="up">
             <Link href="/">Home</Link>
             {"  >  "}
             <Link href="/about">About Us</Link>
             {"  >  Contact Us"}
           </p>
-          <h1 className="contact-hero__title">
+          <h1 className="contact-hero__title" data-reveal="split" data-reveal-delay="0.15">
             Contact <span className="accent">US</span>
           </h1>
         </div>
@@ -38,12 +40,12 @@ export default function ContactPage() {
 
       <section className="contact-body">
         <div className="container">
-          <h2 className="contact-body__heading">
+          <h2 className="contact-body__heading" data-reveal="split">
             Have a <span className="accent">question?</span>
           </h2>
-          <p className="contact-body__lead">
+          <p className="contact-body__lead" data-reveal="up" data-reveal-delay="0.2">
             <img
-              className="contact-body__lead-arrow"
+              className="contact-body__lead-arrow" data-reveal="left" data-reveal-delay="0.3"
               src="/team/arrow-gold.svg"
               alt=""
             />
@@ -52,7 +54,7 @@ export default function ContactPage() {
           </p>
 
           <form className="contact-form" onSubmit={handleSubmit}>
-            <div className="contact-form__left">
+            <div className="contact-form__left" data-reveal="stagger">
               <div className="contact-form__field contact-form__field--notched">
                 <label className="contact-form__legend" htmlFor="contact-name">
                   Name
@@ -101,7 +103,7 @@ export default function ContactPage() {
               </p>
             </div>
 
-            <div className="contact-form__right">
+            <div className="contact-form__right" data-reveal="stagger" data-reveal-delay="0.2">
               <div className="contact-form__field contact-form__field--textarea">
                 <textarea
                   id="contact-message"
@@ -130,13 +132,13 @@ export default function ContactPage() {
             </div>
           </form>
 
-          <hr className="contact-body__rule" />
+          <hr className="contact-body__rule" data-reveal="line" />
 
-          <h2 className="contact-body__company">
+          <h2 className="contact-body__company" data-reveal="split">
             Kumo Tech, <span className="accent">LLC</span>
           </h2>
 
-          <div className="contact-info">
+          <div className="contact-info" data-reveal="stagger">
             <div className="contact-info__item">
               <svg
                 className="contact-info__icon"
@@ -212,7 +214,7 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="contact-map" aria-label="Kumo Tech location map">
+          <div className="contact-map" data-reveal="curtain" aria-label="Kumo Tech location map">
             <div className="contact-map__canvas">
               <span className="contact-map__grid" aria-hidden="true" />
               <span className="contact-map__label">Manassas, VA</span>

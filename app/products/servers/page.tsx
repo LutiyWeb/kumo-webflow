@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PageMotion } from "@/components/motion/PageMotion";
 
 export const metadata: Metadata = {
   title: "Servers — Kumo",
@@ -10,18 +11,19 @@ export const metadata: Metadata = {
 export default function ServersPage() {
   return (
     <main className="servers" id="top">
+      <PageMotion />
       <div className="container">
-        <p className="servers__crumb">
+        <p className="servers__crumb" data-reveal="up">
           <Link href="/">Home</Link>
           {"  >  "}
           <Link href="/products">Products</Link>
           {"  >  Servers"}
         </p>
-        <h1 className="servers__title">Servers</h1>
-        <hr className="servers__rule" />
+        <h1 className="servers__title" data-reveal="split" data-reveal-delay="0.1">Servers</h1>
+        <hr className="servers__rule" data-reveal="line" data-reveal-delay="0.3" />
 
         <section className="servers__intro">
-          <h2 className="servers__heading">
+          <h2 className="servers__heading" data-reveal="split" data-reveal-delay="0.3">
             KUMO servers designed{" "}
             <span className="accent accent--block">
               to ease digital transformation
@@ -29,14 +31,14 @@ export default function ServersPage() {
             of business operations
           </h2>
           <div className="servers__intro-right">
-            <div className="servers__hero-media">
-              <span className="servers__glow" aria-hidden="true" />
+            <div className="servers__hero-media" data-reveal="up" data-reveal-delay="0.3">
+              <span className="servers__glow" data-reveal="fade" data-reveal-delay="0.4" aria-hidden="true" />
               <img src="/products/servers/hero.png" alt="KUMO server racks" />
             </div>
-            <hr className="servers__subrule" />
-            <p className="servers__lead">
+            <hr className="servers__subrule" data-reveal="line" />
+            <p className="servers__lead" data-reveal="up">
               <img
-                className="servers__lead-arrow"
+                className="servers__lead-arrow" data-reveal="left" data-reveal-delay="0.3"
                 src="/team/arrow-white.svg"
                 alt=""
               />
@@ -61,12 +63,12 @@ export default function ServersPage() {
         </section>
 
         <section className="servers__challenges">
-          <h2 className="servers__challenges-title">
+          <h2 className="servers__challenges-title" data-reveal="split">
             Meet the challenges of
             <span className="accent accent--block">the digital age</span>
           </h2>
           <div className="servers__challenges-grid">
-            <div className="servers__challenges-copy">
+            <div className="servers__challenges-copy" data-reveal="stagger">
               <p className="servers__challenges-lead">
                 KUMO servers provide exceptional workload-optimized performance
                 and&nbsp;hardware security features
@@ -89,7 +91,7 @@ export default function ServersPage() {
                 servers supporting high density components.
               </p>
             </div>
-            <div className="servers__racks">
+            <div className="servers__racks" data-reveal="curtain" data-reveal-delay="0.2">
               <img
                 src="/products/servers/racks.png"
                 alt="Engineers working in a server room"
@@ -98,10 +100,10 @@ export default function ServersPage() {
           </div>
         </section>
 
-        <section className="servers__outro">
+        <section className="servers__outro" data-reveal="stagger">
           <p className="servers__quote">
             <img
-              className="servers__quote-arrow"
+              className="servers__quote-arrow" data-reveal="left" data-reveal-delay="0.3"
               src="/team/arrow-gold.svg"
               alt=""
             />
